@@ -1,0 +1,9 @@
+<p class="text-center text-white">{{ message }}</p>
+<p class="px-4" *ngIf="loading == 'progress-bar'">
+  <ngb-progressbar type="light" [value]="loadingAmount"></ngb-progressbar>
+</p>
+<div class="d-flex justify-content-around mt-4" *ngIf="loading == 'spinner'">
+  <div class="spinner-border text-white" role="status" width="96">
+    <span class="sr-only">{{ message }}</span>
+  </div>
+</div>

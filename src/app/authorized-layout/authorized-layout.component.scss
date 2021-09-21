@@ -1,0 +1,401 @@
+//Layout CSS
+@import "../../variables";
+@import "~bootstrap/scss/bootstrap";
+
+:host {
+  height: 100%;
+  display: block;
+}
+
+@media screen and (max-height: 850px) {
+  ::ng-deep {
+    aside {
+      width: 250px !important;
+    }
+    .ng-sidebar__content .ng-sidebar__content--animate {
+      width: 250px !important;
+    }
+  }
+}
+
+.sidenav,
+.header {
+  .btn:focus,
+  .btn:active {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+}
+ng-sidebar-container {
+  height: 100vh;
+}
+
+::ng-deep {
+  aside {
+    background-color: #fff;
+    width: 345px;
+    &.ng-sidebar--opened.ng-sidebar--over {
+      box-shadow: 0 0 2.5em rgba(85, 85, 85, 0.5);
+      z-index: 999;
+    }
+
+    &.ng-sidebar--opened.ng-sidebar--push {
+      box-shadow: 0 0 2.5em rgba(85, 85, 85, 0.11);
+      z-index: 999;
+    }
+  }
+  .ng-sidebar__content .ng-sidebar__content--animate {
+    width: 345px;
+  }
+}
+.hidden {
+  display: none;
+}
+.layout {
+  height: 100%;
+}
+.sidenav {
+  overflow: hidden;
+  transition: 0.2s width;
+  height: 100%;
+  z-index: 1;
+
+  .logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .menu-icon {
+    font-size: 16px;
+    color: #222;
+  }
+
+  .sign-button {
+    margin-top: 1rem;
+    border-radius: $btn-border-radius;
+    background: rgba($color: $blue, $alpha: 0.2);
+    color: $blue;
+    font-size: 12px;
+  }
+
+  &.closed {
+    width: 0;
+  }
+
+  .nav {
+    .nav-link {
+      position: relative;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      color: $sidebar-menu-color;
+      font-weight: 500;
+    }
+    .nav-link.active {
+      background-color: $sidebar-active-menu-bg-color;
+      color: $sidebar-active-menu-color;
+      font-weight: 600;
+
+      &:before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 8px;
+        background-color: $sidebar-active-menu-color;
+        border-radius: 0px 6px 6px 0px;
+      }
+    }
+
+    .nav-link.active-sub-menu {
+      color: $sidebar-active-menu-color;
+      font-weight: 400;
+    }
+    .chevron-menu {
+      position: absolute;
+      right: 2rem;
+    }
+    .nav-link-icon {
+      width: 16px;
+    }
+    fa-icon {
+      width: 16px;
+      display: inline-block;
+      &.transparent {
+        color: transparent;
+      }
+      &.right {
+        float: right;
+        color: lightgray;
+      }
+    }
+    .nav-link-spacer {
+      display: inline-block;
+      width: 48px;
+    }
+  }
+}
+
+.gradient-border {
+  background: linear-gradient(
+    90deg,
+    #e7eeff -1.71%,
+    rgba(231, 238, 255, 0) 101.54%
+  );
+  height: 1px;
+  width: 100%;
+}
+.side-header {
+  height: 80px;
+}
+
+.header {
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex: 0 0 80px;
+  z-index: 998;
+  position: sticky;
+  top: 0;
+  .sidebar-toggle {
+    min-width: 40px;
+    margin-right: 1em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .header-links {
+    padding-left: 43px;
+    padding-right: 43px;
+
+    a {
+      color: #3e4954;
+
+      &:hover {
+        color: $blue;
+      }
+    }
+  }
+
+  .status-buttons {
+    border-right: 1px solid #f7f7f7;
+  }
+
+  .menu-icon {
+    font-size: 20px;
+    color: #222;
+  }
+}
+
+.search-box {
+  background: $search-box-bg-color;
+  border: $search-box-border;
+  border-radius: $search-box-border-radius;
+}
+
+.user-menu {
+  width: 280px;
+  border-radius: 8px;
+
+  .dropdown-item:active {
+    background: rgba($color: $primary, $alpha: 0.25);
+  }
+
+  .name {
+    font-weight: bold;
+    font-size: 14px;
+    color: #6c757d;
+    word-break: break-word;
+  }
+
+  .link {
+    text-decoration: underline;
+    color: #604fb1;
+    font-weight: bold;
+    font-size: 12px;
+  }
+
+  .user-menu-profile {
+    min-height: 105px;
+    flex-grow: 1;
+    padding: 1.25rem 1.5rem;
+
+    .customer-avatar {
+      height: 46px;
+      min-width: 46px;
+      max-width: 46px;
+      background: #c4c4c4;
+      margin-right: 12px;
+      overflow: hidden;
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+    .customer-email {
+      font-size: 11px;
+      font-weight: 600;
+      color: #9db1c7;
+      word-break: break-word;
+    }
+  }
+
+  .user-menu-company {
+    min-height: 87px;
+    padding: 1.25rem 1.5rem;
+    flex-grow: 1;
+
+    .name {
+      max-width: 50%;
+    }
+
+    .cnpj {
+      font-size: 10px;
+      font-weight: 400;
+    }
+  }
+
+  .user-menu-links {
+    min-height: 87px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    button {
+      color: #6c757d;
+      font-weight: bold;
+      font-size: 12px;
+    }
+  }
+
+  .user-menu-logout {
+    height: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    button {
+      color: #604fb1;
+      font-weight: bold;
+      font-size: 12px;
+    }
+  }
+}
+
+.content {
+  flex-grow: 1;
+  height: 100%;
+}
+
+.main {
+  flex-grow: 1;
+  overflow-y: scroll;
+}
+
+.avatar-button {
+  padding-right: 36px;
+  margin-right: 16px;
+  background: $blue;
+  font-size: 14px;
+  font-weight: 500;
+  height: 40px;
+  color: #fff;
+  border-radius: 8px;
+
+  &:hover {
+    color: #fff;
+  }
+  &.dropdown-toggle:after {
+    display: none;
+  }
+}
+.avatar {
+  position: absolute;
+  height: 43px;
+  width: 43px;
+  z-index: 99;
+  background: #c4c4c4;
+  top: -3px;
+  right: -13px;
+  border: 4px solid white;
+  overflow: hidden;
+  img {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.status-button {
+  position: relative;
+  border-radius: 8px;
+  height: 40px;
+  width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    filter: brightness(95%);
+  }
+  .badge {
+    position: absolute;
+    height: 18px;
+    width: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    top: -8px;
+    right: -8px;
+    color: #fff;
+    font-size: 9px;
+  }
+
+  &.dropdown-toggle:after {
+    display: none;
+  }
+
+  &.button-notification {
+    background: #e9ecff;
+    .badge {
+      background: $blue;
+    }
+  }
+  &.button-chat {
+    background: #e9ecff;
+    .badge {
+      background: $blue;
+    }
+  }
+  &.button-settings {
+    background: #ffebe7;
+    .badge {
+      background: #ff6d4d;
+    }
+  }
+  &.button-promos {
+    background: #f1f1f1;
+    .badge {
+      background: #3e4954;
+    }
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .avatar-button {
+    max-width: 160px;
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .avatar-button {
+    max-width: 120px;
+    font-size: 12px;
+  }
+}

@@ -1,0 +1,28 @@
+<div class="p-3">
+  <section>
+    <small class="txt-gray-200 letter-spacing fw-600">PRODUTOS</small>
+  </section>
+
+  <section class="mt-3">
+    <h6 class="fw-300 pl-3">{{ selectedPlan.displayName | uppercase }}</h6>
+  </section>
+
+  <section
+    class="mt-5"
+    *ngFor="let plan of plans | availablePlans: selectedPlan"
+  >
+    <div class="d-flex justify-content-between w-100">
+      <div class="d-flex flex-column">
+        <span class="fw-600 mb-2">Serviços Disponíveis</span>
+        <small class="fw-400">{{ plan.description }}</small>
+        <a class="link" role="button">
+          <small>Exibir todos os recursos</small>
+          <fa-icon class="ml-1" [icon]="faExternalLinkAlt"></fa-icon>
+        </a>
+      </div>
+      <button class="btn update-button" (click)="selectPlan(plan)">
+        <span class="text-nowrap fw-400">{{ plan.buttonText }}</span>
+      </button>
+    </div>
+  </section>
+</div>

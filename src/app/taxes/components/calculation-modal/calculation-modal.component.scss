@@ -1,0 +1,53 @@
+table {
+  position: relative;
+  th {
+    position: sticky;
+    background: #fff;
+    top: 0;
+  }
+
+  tbody {
+    tr {
+      height: 40px;
+      border-bottom: 1px solid #f5f5f5;
+    }
+    td {
+      font-size: 13px;
+      font-weight: 500;
+    }
+  }
+}
+
+.add-document a,
+.hint span {
+  font-size: 13px;
+}
+
+.documents-table {
+  position: relative;
+  min-height: 180px;
+  max-height: 180px;
+  overflow-x: auto;
+  padding-right: 0.5rem;
+
+  .add-document {
+    position: sticky;
+    bottom: 0;
+    background: #fff;
+  }
+}
+
+.save-btn {
+  background-color: #47de8b;
+  color: #fff;
+}
+
+@media (min-width: 576px) {
+  ::ng-deep {
+    .custom-size {
+      .modal-dialog {
+        max-width: 600px;
+      }
+    }
+  }
+}

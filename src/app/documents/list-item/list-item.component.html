@@ -1,0 +1,24 @@
+<div class="d-flex justify-content-between align-items-stretch w-100 py-2 border-bottom border-light">
+  <div class="w-30">
+    <div class="text-primary">#123123</div>
+    <div class="title mb-2"><strong>{{ docNames[file.customMetadata.type] }}</strong></div>
+    <div *ngIf="file.customMetadata.org">{{ orgNames[file.customMetadata.org] }}</div>
+    <div *ngIf="file.customMetadata.uploadedAt">Arquivado em {{ file.customMetadata.uploadedAt | date: 'dd/MM/yyyy, HH:mm' }}</div>
+  </div>
+  <div class="d-flex flex-column justify-content-between w-30">
+    <div>{{ file.customMetadata.description }}</div>
+    <div class="d-flex align-items-center" *ngIf="file.customMetadata.expirationDate">
+      <strong>Validade: {{ file.customMetadata.expirationDate | date: 'dd/MM/yyyy' }}</strong>
+      <i class="pi pi-circle-on text-danger ml-2" *ngIf="isExpired(file.customMetadata.expirationDate)"></i>
+    </div>
+  </div>
+  <div class="d-flex align-items-center w-20">
+    <div *ngIf="file.customMetadata.tags">
+      <span class="badge bg-light text-primary" *ngFor="let tag of file.customMetadata.tags.split(',')">#{{ tag }}</span>
+    </div>
+  </div>
+  <div class="d-flex align-items-center w-20">
+    <a class="btn btn-outline-success" href="{{ file.downloadURL }}" download>Download</a>
+    <a class="btn btn-outline-info ml-3" href="{{ file.downloadURL }}" target="_blank">Abrir</a>
+  </div>
+</div>

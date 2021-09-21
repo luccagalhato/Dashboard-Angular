@@ -1,0 +1,60 @@
+<div class="p-4">
+  <div class="d-flex">
+    <h2 class="flex-grow-1">Contatos</h2>
+  </div>
+
+  <div class="mt-4">
+    <p-table
+      [value]="contacts$ | async"
+      [rows]="10"
+      [rowHover]="false"
+      [paginator]="true"
+      [responsive]="true"
+      [showFirstLastIcon]="false"
+      styleClass="custom-table"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th pSortableColumn="name" style="width: 40%;" class="text-nowrap">
+            Nome <p-sortIcon field="name"></p-sortIcon>
+          </th>
+          <th pSortableColumn="cnpj" style="width: 20%;" class="text-nowrap">
+            CNPJ/CPF <p-sortIcon field="cnpj"></p-sortIcon>
+          </th>
+          <th pSortableColumn="email" style="width: 20%;" class="text-nowrap">
+            Email <p-sortIcon field="email"></p-sortIcon>
+          </th>
+          <th pSortableColumn="phone" style="width: 20%;" class="text-nowrap">
+            Telefone <p-sortIcon field="phone"></p-sortIcon>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-item>
+        <tr>
+          <td class="text-truncate">{{ item.name }}</td>
+          <!-- prettier-ignore -->
+          <td>
+            <span *ngIf="item.cnpj">{{ item.cnpj | mask: '00.000.000/0000-00' }}</span>
+            <span *ngIf="item.cpf">{{ item.cpf | mask: '000.000.000-00' }}</span>
+          </td>
+          <td>{{ item.email }}</td>
+          <td>{{ item.phone }}</td>
+        </tr>
+      </ng-template>
+
+      <ng-template
+        pTemplate="paginatorleft"
+        *ngIf="contacts$ | async"
+        let-state
+      >
+        Mostrar de {{ state.page * state.rows + 1 }} até
+        {{ state.rows * (state.page + 1) }}
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="8">Não há dados para exibir.</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>

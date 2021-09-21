@@ -1,0 +1,31 @@
+:host {
+  height: 100%;
+  display: block;
+  background-color: white;
+}
+
+.steps {
+  list-style: none;
+  li {
+    padding: 0;
+    line-height: 2;
+  }
+}
+
+
+table {
+  td {
+    padding-top: 1px;
+    padding-bottom: 1px;
+  }
+  input {
+    background: rgba(0,0,0,0.05);
+    color: #3E4954;
+    padding-left: 16px;
+    padding-right: 16px;
+    border: none;
+    border-radius: 12px;
+    text-align: right;
+    width: 100%;
+  }
+}

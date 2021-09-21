@@ -1,0 +1,387 @@
+<div class="p-4">
+  <div class="d-flex">
+    <div class="flex-grow-1">
+      <h2>Importar</h2>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="d-flex w-100 justify-content-end">
+        <div ngbDropdown class="d-inline-block">
+          <div class="btn-filter" id="typeDropdown" ngbDropdownToggle>
+            <img src="../../assets/icons/ic_thunder.svg" height="20" alt="" />
+            <div class="d-flex flex-column mx-3">
+              <h6 class="font-weight-bold mb-1">
+                {{ ((filter$ | async)?.type | titlecase) || "Tipo" }}
+              </h6>
+            </div>
+            <img
+              src="../../assets/icons/ic_chevron_down.svg"
+              height="20"
+              alt=""
+            />
+          </div>
+
+          <div ngbDropdownMenu aria-labelledby="typeDropdown">
+            <button
+              ngbDropdownItem
+              routerLink="./"
+              [queryParams]="{
+                document: (filter$ | async)?.document,
+                period: (filter$ | async)?.period
+              }"
+            >
+              Todas
+            </button>
+            <button
+              ngbDropdownItem
+              routerLink="./"
+              [queryParams]="{
+                type: 'saída',
+                document: (filter$ | async)?.document,
+                period: (filter$ | async)?.period
+              }"
+            >
+              Emitidas
+            </button>
+            <button
+              ngbDropdownItem
+              routerLink="./"
+              [queryParams]="{
+                type: 'entrada',
+                document: (filter$ | async)?.document,
+                period: (filter$ | async)?.period
+              }"
+            >
+              Recebidas
+            </button>
+          </div>
+        </div>
+
+        <div ngbDropdown class="d-inline-block ml-3">
+          <div class="btn-filter" id="documentDropdown" ngbDropdownToggle>
+            <img src="../../assets/icons/ic_document.svg" height="20" alt="" />
+            <div class="d-flex flex-column mx-3">
+              <h6 class="font-weight-bold mb-1">
+                {{ ((filter$ | async)?.document | uppercase) || "Documento" }}
+              </h6>
+            </div>
+            <img
+              src="../../assets/icons/ic_chevron_down.svg"
+              height="20"
+              alt=""
+            />
+          </div>
+          <div ngbDropdownMenu aria-labelledby="documentDropdown">
+            <button
+              ngbDropdownItem
+              routerLink="./"
+              [queryParams]="{
+                type: (filter$ | async)?.type,
+                period: (filter$ | async)?.period
+              }"
+            >
+              Todos
+            </button>
+            <button
+              ngbDropdownItem
+              routerLink="./"
+              [queryParams]="{
+                type: (filter$ | async)?.type,
+                document: 'nfe',
+                period: (filter$ | async)?.period
+              }"
+            >
+              NFe (Produtos)
+            </button>
+            <button
+              ngbDropdownItem
+              routerLink="./"
+              [queryParams]="{
+                type: (filter$ | async)?.type,
+                document: 'nfse',
+                period: (filter$ | async)?.period
+              }"
+            >
+              NFSe (Servicos)
+            </button>
+            <button ngbDropdownItem>Canceladas</button>
+          </div>
+        </div>
+
+        <div ngbDropdown class="d-inline-block ml-3">
+          <div class="btn-filter" id="dateDropdown" ngbDropdownToggle>
+            <img src="../../assets/icons/ic_calendar.svg" height="20" alt="" />
+            <div class="d-flex flex-column mx-3">
+              <h6 class="font-weight-bold mb-1">
+                {{ formatDate((filter$ | async)?.period) }}
+              </h6>
+            </div>
+            <img
+              src="../../assets/icons/ic_chevron_down.svg"
+              height="20"
+              alt=""
+            />
+          </div>
+          <div ngbDropdownMenu aria-labelledby="dateDropdown">
+            <div class="d-flex justify-content-center">
+              <div
+                class="btn-group btn-group-sm btn-group-toggle"
+                ngbRadioGroup
+                name="radioBasic"
+                [(ngModel)]="radioPeriod"
+              >
+                <label ngbButtonLabel class="btn-outline-primary btn-sm">
+                  <input ngbButton type="radio" value="month" /> Mês
+                </label>
+                <label ngbButtonLabel class="btn-outline-primary btn-sm">
+                  <input ngbButton type="radio" value="quarter" /> Trimestre
+                </label>
+              </div>
+            </div>
+
+            <div class="d-flex align-items-center">
+              <button class="btn btn-link" (click)="decrementYear()">
+                <i class="pi pi-chevron-left"></i>
+              </button>
+              <span class="flex-grow-1 text-center">{{ radioYear }}</span>
+              <button class="btn btn-link" (click)="incrementYear()">
+                <i class="pi pi-chevron-right"></i>
+              </button>
+            </div>
+
+            <div class="px-3 py-2" *ngIf="radioPeriod === 'month'">
+              <div class="row">
+                <button
+                  class="btn btn-sm col-4"
+                  [class.btn-primary]="isMonthSelected(month)"
+                  *ngFor="let month of months()"
+                  routerLink="./"
+                  [queryParams]="{
+                    type: (filter$ | async)?.type,
+                    document: (filter$ | async)?.document,
+                    period: formatDate(month, 'MM-YYYY')
+                  }"
+                >
+                  <small>{{ formatDate(month, "MMM") }}</small>
+                </button>
+              </div>
+            </div>
+
+            <div class="px-3 py-2" *ngIf="radioPeriod === 'quarter'">
+              <div class="row">
+                <button
+                  class="btn btn-sm col-6"
+                  [class.btn-primary]="isQuarterSelected(quarter)"
+                  *ngFor="let quarter of quarters()"
+                  routerLink="./"
+                  [queryParams]="{
+                    type: (filter$ | async)?.type,
+                    document: (filter$ | async)?.document,
+                    period: formatDate(quarter, 'QT-YYYY')
+                  }"
+                >
+                  <small>{{ formatDate(quarter, "Qtri/YYYY") }}</small>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-md-12">
+      <div class="d-flex w-100 justify-content-end">
+        <button (click)="importNf()" class="btn import-btn">Importar</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-lg-3 mb-4 mb-lg-0">
+      <div class="card sm-card">
+        <div class="card-body d-flex align-items-center">
+          <div class="d-flex align-items-center icon-container pr-4">
+            <div
+              class="rounded-circle d-flex align-items-center justify-content-center"
+            >
+              <img
+                src="../../../assets/icons/ic_coffee.svg"
+                height="40"
+                alt=""
+              />
+            </div>
+          </div>
+          <div class="d-flex flex-column">
+            <h1 class="mb-0 card-value">{{ taxInvoicesCount }}</h1>
+            <span class="medium-txt">Notas Fiscais</span>
+            <div class="d-flex align-items-center">
+              <img src="../../assets/icons/graph_positive.svg" alt="" />
+              <small class="ml-1 text-muted">4% (30 days)</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 mb-4 mb-lg-0">
+      <div class="card sm-card">
+        <div class="card-body d-flex align-items-center">
+          <div class="d-flex align-items-center icon-container pr-4">
+            <div
+              class="rounded-circle d-flex align-items-center justify-content-center"
+            >
+              <img
+                src="../../../assets/icons/ic_dollar.svg"
+                height="40"
+                alt=""
+              />
+            </div>
+          </div>
+          <div class="d-flex flex-column">
+            <h1 class="mb-0 card-value">{{ formatNumber(total) }}</h1>
+            <span class="medium-txt">Faturamento</span>
+            <div class="d-flex align-items-center">
+              <img src="../../assets/icons/graph_negative.svg" alt="" />
+              <small class="ml-1 text-muted">4% (30 days)</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 mb-4 mb-lg-0">
+      <div class="card sm-card">
+        <div class="card-body d-flex align-items-center">
+          <div class="d-flex align-items-center icon-container pr-4">
+            <div
+              class="rounded-circle d-flex align-items-center justify-content-center"
+            >
+              <img
+                src="../../../assets/icons/ic_activity.svg"
+                height="40"
+                alt=""
+              />
+            </div>
+          </div>
+          <div class="d-flex flex-column">
+            <h1 class="mb-0 card-value">{{ formatNumber(totalTaxes) }}</h1>
+            <span class="medium-txt">Impostos</span>
+            <div class="d-flex align-items-center">
+              <img src="../../assets/icons/graph_positive.svg" alt="" />
+              <small class="ml-1 text-muted">4% (30 days)</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3">
+      <div class="card sm-card">
+        <div class="card-body d-flex align-items-center">
+          <div class="d-flex align-items-center icon-container pr-4">
+            <div
+              class="rounded-circle d-flex align-items-center justify-content-center"
+            >
+              <img
+                src="../../../assets/icons/ic_customer _2.svg"
+                height="40"
+                alt=""
+              />
+            </div>
+          </div>
+          <div class="d-flex flex-column">
+            <h1 class="mb-0 card-value">{{ contactsCount }}</h1>
+            <span class="medium-txt">Clientes</span>
+            <div class="d-flex align-items-center">
+              <img src="../../assets/icons/graph_positive.svg" alt="" />
+              <small class="ml-1 text-muted">4% (30 days)</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-md-12">
+      <p-table
+        [value]="invoices$ | async"
+        [rows]="10"
+        [rowHover]="false"
+        [paginator]="true"
+        [responsive]="true"
+        [showFirstLastIcon]="false"
+        styleClass="custom-table"
+        tableStyleClass="no-row-border"
+      >
+        <ng-template pTemplate="header">
+          <tr>
+            <th pSortableColumn="id" style="width: 10%" class="text-nowrap">
+              Número <p-sortIcon field="id"></p-sortIcon>
+            </th>
+            <th
+              pSortableColumn="emissionDate"
+              style="width: 20%"
+              class="text-nowrap"
+            >
+              Data de Importação <p-sortIcon field="emissionDate"></p-sortIcon>
+            </th>
+            <th
+              pSortableColumn="razaoSocial"
+              style="width: 30%"
+              class="text-nowrap"
+            >
+              Empresa <p-sortIcon field="razaoSocial"></p-sortIcon>
+            </th>
+            <th pSortableColumn="cnpj" style="width: 20%" class="text-nowrap">
+              CNPJ/CPF <p-sortIcon field="cnpj"></p-sortIcon>
+            </th>
+            <th pSortableColumn="amount" style="width: 15%" class="text-nowrap">
+              Valor <p-sortIcon field="amount"></p-sortIcon>
+            </th>
+            <th style="width: 5%" class="text-nowrap"></th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-item>
+          <tr>
+            <td>{{ item.id }}</td>
+            <!-- prettier-ignore -->
+            <td>
+              {{ item.emissionDate.toDate() | date: "dd/MM/yyyy HH:MM" }}
+            </td>
+            <td class="text-truncate">{{ item.buyer.razaoSocial }}</td>
+            <td>
+              <span *ngIf="item.buyer.cnpj">{{
+                item.buyer.cnpj | mask: "00.000.000/0000-00"
+              }}</span>
+              <span *ngIf="item.buyer.cpf">{{
+                item.buyer.cpf | mask: "000.000.000-00"
+              }}</span>
+            </td>
+            <td>{{ item.total | currency: "BRL" }}</td>
+            <td>
+              <a role="button" (click)="openRowDetails(item)"
+                ><i class="pi pi-ellipsis-h"></i
+              ></a>
+            </td>
+          </tr>
+        </ng-template>
+
+        <ng-template
+          pTemplate="paginatorleft"
+          *ngIf="invoices$ | async"
+          let-state
+        >
+          Mostrar de {{ state.page * state.rows + 1 }} até
+          {{ state.rows * (state.page + 1) }}
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td colspan="8">Não há dados para exibir.</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</div>

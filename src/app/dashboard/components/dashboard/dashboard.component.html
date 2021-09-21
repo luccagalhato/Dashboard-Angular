@@ -1,0 +1,766 @@
+<div class="p-4">
+  <div class="d-flex">
+    <div class="flex-grow-1">
+      <h2>Dashboard</h2>
+      <small class="text-form">Bem Vindo</small>
+    </div>
+    <div>
+      <div ngbDropdown class="d-inline-block">
+        <button class="btn btn-light" id="dropdownBasic1" ngbDropdownToggle>
+          Tipo
+        </button>
+        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+          <button ngbDropdownItem (click)="onTypeFilterChange('')"></button>
+          <button ngbDropdownItem (click)="onTypeFilterChange('entrada')">Entrada</button>
+          <button ngbDropdownItem (click)="onTypeFilterChange('saída')">Saída</button>
+        </div>
+      </div>
+
+      <div ngbDropdown class="d-inline-block ml-3">
+        <button class="btn btn-light" id="dropdownBasic1" ngbDropdownToggle>
+          Documento
+        </button>
+        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+          <button ngbDropdownItem (click)="onDocumentFilterChange('')">Todas</button>
+          <button ngbDropdownItem (click)="onDocumentFilterChange('nfe')">NF-e</button>
+          <button ngbDropdownItem (click)="onDocumentFilterChange('nfse')">NFS-e</button>
+          <button ngbDropdownItem (click)="onDocumentFilterChange('nfce')">NFC-e</button>
+        </div>
+      </div>
+
+      <div ngbDropdown class="d-inline-block ml-3">
+        <button class="btn btn-light" id="dropdownBasic1" ngbDropdownToggle>
+          Hoje
+        </button>
+        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+          <ngb-datepicker #dp></ngb-datepicker>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <ngx-spinner [fullScreen]="true"></ngx-spinner>
+
+  <div class="row mt-4" *ngIf="!isLoading">
+    <div class="col-lg-3 mb-4 mb-lg-0">
+      <div class="card sm-card">
+        <div class="card-body d-flex align-items-center">
+          <div class="d-flex align-items-center icon-container pr-4">
+            <div
+              class="
+                rounded-circle
+                d-flex
+                align-items-center
+                justify-content-center
+              "
+            >
+              <img
+                src="../../../assets/icons/ic_coffee.svg"
+                height="40"
+                alt=""
+              />
+            </div>
+          </div>
+          <div class="d-flex flex-column">
+            <h1 class="mb-0 card-value-small text-nowrap text-truncate">
+              {{ invoices.length }}
+            </h1>
+            <span class="medium-txt">Notas Fiscais</span>
+            <div class="d-flex align-items-center">
+              <img src="../../assets/icons/graph_positive.svg" alt="" />
+              <small class="ml-1 text-muted">4% (30 days)</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 mb-4 mb-lg-0">
+      <div class="card sm-card">
+        <div class="card-body d-flex align-items-center">
+          <div class="d-flex align-items-center icon-container pr-4">
+            <div
+              class="
+                rounded-circle
+                d-flex
+                align-items-center
+                justify-content-center
+              "
+            >
+              <img
+                src="../../../assets/icons/ic_dollar.svg"
+                height="40"
+                alt=""
+              />
+            </div>
+          </div>
+          <div class="d-flex flex-column">
+            <h1 class="mb-0 card-value-small">{{ formatNumber(taxes.total) }}</h1>
+            <span class="medium-txt">Faturamento</span>
+            <div class="d-flex align-items-center">
+              <img src="../../assets/icons/graph_negative.svg" alt="" />
+              <small class="ml-1 text-muted">4% (30 days)</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 mb-4 mb-lg-0">
+      <div class="card sm-card">
+        <div class="card-body d-flex align-items-center">
+          <div class="d-flex align-items-center icon-container pr-4">
+            <div
+              class="
+                rounded-circle
+                d-flex
+                align-items-center
+                justify-content-center
+              "
+            >
+              <img
+                src="../../../assets/icons/ic_activity.svg"
+                height="40"
+                alt=""
+              />
+            </div>
+          </div>
+          <div class="d-flex flex-column">
+            <h1 class="mb-0 card-value-small">
+              {{ formatNumber(taxes.totalTaxes) }}
+            </h1>
+            <span class="medium-txt">Impostos</span>
+            <div class="d-flex align-items-center">
+              <img src="../../assets/icons/graph_positive.svg" alt="" />
+              <small class="ml-1 text-muted">4% (30 days)</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3">
+      <div class="card sm-card">
+        <div class="card-body d-flex align-items-center">
+          <div class="d-flex align-items-center icon-container pr-4">
+            <div
+              class="
+                rounded-circle
+                d-flex
+                align-items-center
+                justify-content-center
+              "
+            >
+              <img
+                src="../../../assets/icons/ic_customer _2.svg"
+                height="40"
+                alt=""
+              />
+            </div>
+          </div>
+          <div class="d-flex flex-column">
+            <h1 class="mb-0 card-value-small">{{ taxes.contactsCount }}</h1>
+            <span class="medium-txt">Clientes</span>
+            <div class="d-flex align-items-center">
+              <img src="../../assets/icons/graph_positive.svg" alt="" />
+              <small class="ml-1 text-muted">4% (30 days)</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section *ngIf="!isLoading">
+    <div class="row mt-4">
+      <div class="col-md-6">
+        <div class="card dashboard-card nf-summary">
+          <div class="card-header pt-3">
+            <div
+              class="d-flex w-100 justify-content-between align-items-center"
+            >
+              <div class="d-flex flex-column">
+                <h5>Resumo Notas Fiscais</h5>
+                <small class="txt-gray-200">Lorem ipsum dolor sit amet.</small>
+              </div>
+              <div class="dashboard-filter">
+                <ul>
+                  <li class="mr-2" [class.active]="nfSummaryActiveFiler == 0">
+                    <a role="button" (click)="nfSummaryActiveFiler = 0"
+                      >Mensal</a
+                    >
+                  </li>
+                  <li class="mr-2" [class.active]="nfSummaryActiveFiler == 1">
+                    <a role="button" (click)="nfSummaryActiveFiler = 1"
+                      >Semanal</a
+                    >
+                  </li>
+                  <li [class.active]="nfSummaryActiveFiler == 2">
+                    <a role="button" (click)="nfSummaryActiveFiler = 2">Hoje</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <section class="my-3">
+              <div class="new-orders">
+                <div class="d-flex align-items-center">
+                  <div class="order-quantity mr-3">25</div>
+                  <h5 class="mb-0 mr-3">Novas</h5>
+                  <div class="circle"></div>
+                </div>
+                <div class="btn-link btn txt-blue">
+                  <span>Ver notas</span>
+                  <img
+                    class="ml-2"
+                    src="../../assets/icons/ic_chevron_right_blue.svg"
+                  />
+                </div>
+              </div>
+            </section>
+
+            <section class="mb-2">
+              <div class="row">
+                <div class="col-4">
+                  <div class="card border-card summary-card">
+                    <h4 class="font-weight-bold">
+                      {{ fakeNfSummaryStats[0] }}
+                    </h4>
+                    <h6 class="txt-gray-200 mb-0 fw-500 text-nowrap">
+                      Emitidas
+                    </h6>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="card border-card summary-card">
+                    <h4 class="font-weight-bold">
+                      {{ fakeNfSummaryStats[1] }}
+                    </h4>
+                    <h6 class="txt-gray-200 mb-0 fw-500 text-nowrap">
+                      Recebidas
+                    </h6>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="card border-card summary-card">
+                    <h4 class="font-weight-bold">
+                      {{ fakeNfSummaryStats[2] }}
+                    </h4>
+                    <h6 class="txt-gray-200 mb-0 fw-500 text-nowrap">
+                      Canceladas
+                    </h6>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <section class="mt-3">
+              <div class="row no-gutters d-flex align-items-center">
+                <div class="col-4">
+                  <div style="display: block" style="margin-left: -2rem">
+                    <canvas
+                      baseChart
+                      [data]="nfSummaryChartData"
+                      [labels]="nfSummaryChartLabels"
+                      [chartType]="nfSummaryChartType"
+                      [colors]="nfSummaryChartColors"
+                      [options]="nfSummaryChartOptions"
+                      [width]="130"
+                    >
+                    </canvas>
+                  </div>
+                </div>
+                <div class="col-8">
+                  <div class="nf-summary-details" style="margin-left: -1rem">
+                    <table>
+                      <thead>
+                        <th class="label-column-width"></th>
+                        <th></th>
+                        <th class="ml-5 pl-5" style="width: 10%"></th>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td class="fw-500">
+                            <span class="text-nowrap"
+                              >Emitidas ({{
+                                fakeNfSummaryStats[0] / fakeNfSummaryTotal
+                                  | percent
+                              }})</span
+                            >
+                          </td>
+                          <td>
+                            <span
+                              class="bar"
+                              [style.background]="
+                                'linear-gradient(90deg, #2bc155 ' +
+                                (fakeNfSummaryStats[0] / fakeNfSummaryTotal) *
+                                  100 +
+                                '%, #f3f3f3 0%)'
+                              "
+                            ></span>
+                          </td>
+                          <td class="text-right">
+                            <span class="txt-gray-200 text-nowrap fw-500">{{
+                              fakeNfSummaryStats[0]
+                            }}</span>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td class="fw-500">
+                            <span class="text-nowrap"
+                              >Recebidas ({{
+                                fakeNfSummaryStats[1] / fakeNfSummaryTotal
+                                  | percent
+                              }})</span
+                            >
+                          </td>
+                          <td>
+                            <span
+                              class="bar"
+                              [style.background]="
+                                'linear-gradient(90deg, #FF6D4C ' +
+                                (fakeNfSummaryStats[1] / fakeNfSummaryTotal) *
+                                  100 +
+                                '%, #f3f3f3 0%)'
+                              "
+                            ></span>
+                          </td>
+                          <td class="text-right">
+                            <span class="txt-gray-200 text-nowrap fw-500">{{
+                              fakeNfSummaryStats[1]
+                            }}</span>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td class="fw-500">
+                            <span class="text-nowrap"
+                              >Canceladas ({{
+                                fakeNfSummaryStats[2] / fakeNfSummaryTotal
+                                  | percent
+                              }})</span
+                            >
+                          </td>
+                          <td>
+                            <span
+                              class="bar"
+                              [style.background]="
+                                'linear-gradient(90deg, #3E4954 ' +
+                                (fakeNfSummaryStats[2] / fakeNfSummaryTotal) *
+                                  100 +
+                                '%, #f3f3f3 0%)'
+                              "
+                            ></span>
+                          </td>
+                          <td class="text-right">
+                            <span class="txt-gray-200 text-nowrap fw-500">{{
+                              fakeNfSummaryStats[2]
+                            }}</span>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <app-revenue-chart [cnpj]="cnpj"></app-revenue-chart>
+      </div>
+    </div>
+
+    <div class="row mt-4">
+      <div class="col-md-6">
+        <div class="d-flex flex-column">
+          <div class="card dashboard-card-no-size taxes mb-4">
+            <div class="card-header">
+              <section>
+                <div class="d-flex align-items-start justify-content-between">
+                  <h5>Impostos</h5>
+
+                  <div
+                    ngbDropdown
+                    placement="bottom-right"
+                    class="d-inline-block"
+                  >
+                    <button
+                      class="btn btn-filter"
+                      id="dashboard-revenue-filter"
+                      ngbDropdownToggle
+                    >
+                      <span class="mr-3">{{ selectedTaxesFilter }}</span>
+                      <img
+                        src="../../assets/icons/ic_chevron_down_blue.svg"
+                        alt=""
+                      />
+                    </button>
+                    <div
+                      ngbDropdownMenu
+                      aria-labelledby="dashboard-revenue-filter"
+                    >
+                      <button
+                        (click)="setTaxesFilter('Mensal')"
+                        ngbDropdownItem
+                      >
+                        Mensal
+                      </button>
+                      <button
+                        (click)="setTaxesFilter('Semestral')"
+                        ngbDropdownItem
+                      >
+                        Semestral
+                      </button>
+                      <button (click)="setTaxesFilter('Anual')" ngbDropdownItem>
+                        Anual
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </div>
+            <div class="card-body">
+              <section class="py-4">
+                <div class="row">
+                  <div class="col-4">
+                    <div class="d-flex flex-column">
+                      <div class="tax mb-3">
+                        <div class="bar pink mr-3"></div>
+                        <div class="d-flex flex-column">
+                          <small>ICMS</small>
+                          <div class="d-flex align-items-center">
+                            <span class="fw-500 text-nowrap">{{ taxes.impostosRetidos.ICMS | currency: "BRL":"symbol" }}</span>
+                            <span class="txt-gray-100 ml-2">/?</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="tax mb-3">
+                        <div class="bar green mr-3"></div>
+                        <div class="d-flex flex-column">
+                          <small>PIS / COFINS</small>
+                          <div class="d-flex align-items-center">
+                            <span class="fw-500 text-nowrap">{{ taxes.impostosCalculados.PIS | currency: "BRL":"symbol" }}</span>
+                            <span class="txt-gray-100 ml-2">/{{ taxes.impostosCalculados.COFINS | currency: "BRL":"symbol" }}</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="tax mb-3">
+                        <div class="bar light-blue mr-3"></div>
+                        <div class="d-flex flex-column">
+                          <small>ISS</small>
+                          <div class="d-flex align-items-center">
+                            <span class="fw-500 text-nowrap">{{ taxes.impostosCalculados.ISS | currency: "BRL":"symbol" }}</span>
+                            <span class="txt-gray-100 ml-2">/?</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="tax">
+                        <div class="bar purple mr-3"></div>
+                        <div class="d-flex flex-column">
+                          <small>IR / CS</small>
+                          <div class="d-flex align-items-center">
+                            <span class="fw-500 text-nowrap">{{ taxes.impostosCalculados.IRPJ | currency: "BRL":"symbol" }}</span>
+                            <span class="txt-gray-100 ml-2">/{{ taxes.impostosCalculados.CSLL | currency: "BRL":"symbol" }}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-8">
+                    <div class="d-flex">
+                      <div class="box box-pink mr-4">
+                        <circle-progress
+                          percent="80"
+                          backgroundColor="transparent"
+                          [backgroundPadding]="0"
+                          [radius]="30"
+                          [space]="-10"
+                          [maxPercent]="100"
+                          [unitsFontSize]="14"
+                          unitsColor="#ffffff"
+                          [outerStrokeWidth]="10"
+                          [innerStrokeWidth]="10"
+                          outerStrokeColor="#ffffff"
+                          titleColor="#ffffff"
+                          [titleFontWeight]="600"
+                          [titleFontSize]="14"
+                          subtitleColor="#707070"
+                          [imageHeight]="20"
+                          [showSubtitle]="false"
+                          [showInnerStroke]="true"
+                          innerStrokeColor="#ffffff2d"
+                          [animationDuration]="600"
+                        ></circle-progress>
+                        <span>Alteração</span>
+                      </div>
+                      <div class="box box-green">
+                        <circle-progress
+                          percent="80"
+                          backgroundColor="transparent"
+                          [backgroundPadding]="0"
+                          [radius]="30"
+                          [space]="-10"
+                          [maxPercent]="100"
+                          [unitsFontSize]="14"
+                          unitsColor="#ffffff"
+                          [outerStrokeWidth]="10"
+                          [innerStrokeWidth]="10"
+                          outerStrokeColor="#ffffff"
+                          titleColor="#ffffff"
+                          [titleFontWeight]="600"
+                          [titleFontSize]="14"
+                          subtitleColor="#707070"
+                          [imageHeight]="20"
+                          [showSubtitle]="false"
+                          [showInnerStroke]="true"
+                          innerStrokeColor="#ffffff2d"
+                          [animationDuration]="600"
+                        ></circle-progress>
+                        <span>Installment</span>
+                      </div>
+                    </div>
+                    <div class="d-flex mt-4">
+                      <div class="box box-white mr-4">
+                        <circle-progress
+                          percent="80"
+                          backgroundColor="transparent"
+                          [backgroundPadding]="0"
+                          [radius]="30"
+                          [space]="-10"
+                          [maxPercent]="100"
+                          [unitsFontSize]="14"
+                          unitsColor="#000"
+                          [outerStrokeWidth]="10"
+                          [innerStrokeWidth]="10"
+                          outerStrokeColor="#1EB6E7"
+                          titleColor="#000"
+                          [titleFontWeight]="600"
+                          [titleFontSize]="14"
+                          subtitleColor="#707070"
+                          [imageHeight]="20"
+                          [showSubtitle]="false"
+                          [showInnerStroke]="true"
+                          innerStrokeColor="#eaeaea"
+                          [animationDuration]="600"
+                        ></circle-progress>
+                        <span>Restaurant</span>
+                      </div>
+                      <div class="box box-purple">
+                        <circle-progress
+                          percent="80"
+                          backgroundColor="transparent"
+                          [backgroundPadding]="0"
+                          [radius]="30"
+                          [space]="-10"
+                          [maxPercent]="100"
+                          [unitsFontSize]="14"
+                          unitsColor="#ffffff"
+                          [outerStrokeWidth]="10"
+                          [innerStrokeWidth]="10"
+                          outerStrokeColor="#ffffff"
+                          titleColor="#ffffff"
+                          [titleFontWeight]="600"
+                          [titleFontSize]="14"
+                          subtitleColor="#707070"
+                          [imageHeight]="20"
+                          [showSubtitle]="false"
+                          [showInnerStroke]="true"
+                          innerStrokeColor="#ffffff2d"
+                          [animationDuration]="600"
+                        ></circle-progress>
+                        <span>Property</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </div>
+
+          <div class="card dashboard-card-no-size bills bg-white">
+            <div class="card-header pt-3">
+              <div class="d-flex align-items-start justify-content-between">
+                <div class="d-flex flex-column card-title w-75">
+                  <h5>Guias</h5>
+                  <small class="txt-gray-200"
+                    >Documentos gerados para pagamento</small
+                  >
+                </div>
+                <div
+                  ngbDropdown
+                  placement="bottom-right"
+                  class="d-inline-block"
+                >
+                  <button
+                    class="btn btn-filter"
+                    id="dashboard-revenue-filter"
+                    ngbDropdownToggle
+                  >
+                    <span class="mr-3">{{ selectedBillsFilter }}</span>
+                    <img
+                      src="../../assets/icons/ic_chevron_down_blue.svg"
+                      alt=""
+                    />
+                  </button>
+                  <div
+                    ngbDropdownMenu
+                    aria-labelledby="dashboard-revenue-filter"
+                  >
+                    <button (click)="setBillsFilter('Mês')" ngbDropdownItem>
+                      Mês
+                    </button>
+                    <button
+                      (click)="setBillsFilter('Semestre')"
+                      ngbDropdownItem
+                    >
+                      Semestre
+                    </button>
+                    <button (click)="setBillsFilter('Ano')" ngbDropdownItem>
+                      Ano
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <section>
+                <div class="bills-list">
+                  <table>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <tbody>
+                      <tr *ngFor="let bill of bills">
+                        <td>
+                          <div class="bill-icon">
+                            <img [src]="bill.iconPath" height="18" />
+                          </div>
+                        </td>
+
+                        <td>
+                          <div class="d-flex flex-column">
+                            <span class="fw-500">{{ bill.title }}</span>
+                            <small class="txt-blue fw-500">{{
+                              bill.date
+                            }}</small>
+                            <span class="mt-2 fw-500">{{ bill.desc }}</span>
+                          </div>
+                        </td>
+                        <td class="text-right pr-2">
+                          <div class="d-flex flex-column">
+                            <h6 class="fw-900 text-nowrap">
+                              {{ bill.amount | currency: "BRL" }}
+                            </h6>
+                            <div
+                              class="
+                                d-flex
+                                align-items-center
+                                justify-content-end
+                              "
+                            >
+                              <a class="mr-3" role="button">
+                                <img
+                                  src="../../assets/icons/icAttachment_purple.svg"
+                                  height="18"
+                                  alt="Anexar"
+                                />
+                              </a>
+                              <div class="tag" [ngClass]="bill.tagClass">
+                                {{ bill.tagText }}
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </section>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card dashboard-card-no-size queries">
+          <div class="card-header">
+            <section>
+              <h5>Consultas</h5>
+              <small class="txt-gray-200"
+                >Acompanhe as situações das CND e Cadastros</small
+              >
+            </section>
+          </div>
+
+          <div class="card-body">
+            <section class="mt-2">
+              <div class="queries-table">
+                <table>
+                  <thead>
+                    <th></th>
+                    <th style="width: 36%"></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let query of queries">
+                      <td>
+                        <div class="circle">
+                          <img
+                            [src]="
+                              query.checkStatus
+                                ? '../../assets/icons/check.svg'
+                                : '../../assets/icons/error.svg'
+                            "
+                            height="22"
+                          />
+                        </div>
+                      </td>
+                      <td>
+                        <div class="d-flex flex-column">
+                          <span class="fw-600">{{ query.title }}</span>
+                          <small>{{ query.desc }}</small>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="d-flex flex-column">
+                          <span>{{ query.date }}</span>
+                          <small>{{ query.time }}</small>
+                        </div>
+                      </td>
+                      <td class="text-center">
+                        <a role="button">
+                          <img
+                            [src]="
+                              query.attachmentStatus === 'success'
+                                ? '../../assets/icons/icAttachment_green.svg'
+                                : '../../assets/icons/icAttachment_red.svg'
+                            "
+                            height="18"
+                            [hidden]="query.attachmentStatus === 'pending'"
+                          />
+                        </a>
+                      </td>
+                      <td class="text-right">
+                        <span
+                          class="fw-500"
+                          [style.color]="
+                            query.attachmentStatus === 'success'
+                              ? '#2BC155'
+                              : query.attachmentStatus === 'error'
+                              ? '#E92121'
+                              : '#969BA0'
+                          "
+                          >{{ query.statusLabel }}</span
+                        >
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

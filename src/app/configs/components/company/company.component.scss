@@ -1,0 +1,17 @@
+.company-logo {
+  height: 100px;
+  width: 100px;
+  border-radius: 30%;
+  background-color: #c4c4c4;
+
+  input {
+    height: 100%;
+    width: inherit;
+    opacity: 0;
+    cursor: pointer;
+  }
+}
+
+.form-control {
+  font-weight: 500;
+}

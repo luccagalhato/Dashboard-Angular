@@ -1,0 +1,28 @@
+
+table {
+  font-size: 11px;
+  th {
+    padding: 0.5rem;
+    min-width: 100px;
+  }
+  .row-desc {
+    padding-right: 1rem;
+    min-width: 150px;
+  }
+  .row-margin {
+    height: 40px;
+  }
+}
+
+.table-revenue {
+  max-width: fit-content;
+  overflow-x: auto;
+}
+
+.border-dashed {
+  border-top: 1px dashed #c2c2c233;
+}
+
+.modal-dialog {
+  width: 900px;
+}

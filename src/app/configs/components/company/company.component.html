@@ -1,0 +1,233 @@
+<div class="row pb-2">
+  <div class="col-12">
+    <div class="d-flex">
+      <div class="col-md-9">
+        <form [formGroup]="form" (ngSubmit)="submit()" id="config-company-form">
+          <section>
+            <span class="txt-primary">Dados Cadastrais</span>
+            <div class="row mt-3">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>CNPJ</label>
+                  <input type="text" class="form-control rounded-input" />
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>Razão Social</label>
+                  <input type="text" class="form-control rounded-input" />
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>Nome Fantasia</label>
+                  <input type="text" class="form-control rounded-input" />
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Inscrição Municipal</label>
+                  <input type="text" class="form-control rounded-input" />
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Inscrição Estadual</label>
+                  <input type="text" class="form-control rounded-input" />
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>I.E Isenta</label>
+                      <select class="form-control rounded-input">
+                        <option [value]="true">Sim</option>
+                        <option [value]="false">Não</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="text-nowrap">Simples Nacional</label>
+                      <select class="form-control rounded-input">
+                        <option [value]="true">Sim</option>
+                        <option [value]="false">Não</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="row">
+                  <div class="col-md-11 offset-md-1">
+                    <div class="form-group">
+                      <label>Capital Social</label>
+                      <input type="text" class="form-control rounded-input" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>CEP</label>
+                  <input type="text" class="form-control rounded-input" />
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Logradouro</label>
+                  <input type="text" class="form-control rounded-input" />
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label>Número</label>
+                      <input type="text" class="form-control rounded-input" />
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Bairro</label>
+                      <input type="text" class="form-control rounded-input" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Complemento</label>
+                  <input type="text" class="form-control rounded-input" />
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Cidade</label>
+                  <select class="form-control rounded-input"></select>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label>UF</label>
+                      <select class="form-control rounded-input"></select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section>
+            <span class="txt-primary">Dados de Contato</span>
+            <div class="row mt-2">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>E-mail Principal</label>
+                  <input
+                    type="email"
+                    class="form-control rounded-input"
+                    [class.is-invalid]="
+                      form.controls.email.invalid && submitted
+                    "
+                    formControlName="email"
+                  />
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>E-mail Financeiro</label>
+                  <input
+                    type="email"
+                    class="form-control rounded-input"
+                    [class.is-invalid]="
+                      form.controls.financialEmail.invalid && submitted
+                    "
+                    formControlName="financialEmail"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>Telefone Principal</label>
+                  <input
+                    type="text"
+                    mask="(00) 0000-0000||(00) 0 0000-0000"
+                    class="form-control rounded-input"
+                    [class.is-invalid]="
+                      form.controls.phone.invalid && submitted
+                    "
+                    formControlName="phone"
+                  />
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>Telefone Celular</label>
+                  <input
+                    type="text"
+                    mask="(00) 0000-0000||(00) 0 0000-0000"
+                    class="form-control rounded-input"
+                    [class.is-invalid]="
+                      form.controls.mobile.invalid && submitted
+                    "
+                    formControlName="mobile"
+                  />
+                </div>
+              </div>
+            </div>
+            <span class="txt-primary">Cnaes</span>
+            <div class="row mt-2">
+              <div class="col-md-8">
+                <div class="form-group">
+                  <textarea
+                    formControlName="cnaes"
+                    style="resize: none"
+                    rows="4"
+                    class="form-control rounded-input"
+                    [class.is-invalid]="
+                      form.controls.cnaes.invalid && submitted
+                    "
+                  ></textarea>
+                </div>
+              </div>
+            </div>
+          </section>
+        </form>
+      </div>
+      <div class="col-md-3">
+        <div class="d-flex flex-column align-items-center pt-5">
+          <small class="text-center"
+            >Insira ou altere sua <br />logomarca</small
+          >
+          <div class="company-logo mt-2">
+            <input type="file" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="mt-4 d-flex justify-content-end align-items-center w-100 pr-3">
+    <button type="button" class="btn btn-action btn-secondary-blue mr-3">
+      cancelar
+    </button>
+    <button
+      type="submit"
+      form="config-company-form"
+      class="btn btn-action btn-blue"
+    >
+      salvar
+    </button>
+  </div>
+</div>

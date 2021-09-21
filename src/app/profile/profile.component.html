@@ -1,0 +1,175 @@
+<div class="p-4">
+  <div class="d-flex">
+    <h2 class="flex-grow-1">Perfil</h2>
+  </div>
+  <div class="mt-4">
+    <div class="card shadow-sm">
+      <div class="card-header p-0"></div>
+      <div class="card-body">
+        <div class="row pt-2">
+          <div class="col-md-8">
+            <form id="profile-form" [formGroup]="form" (ngSubmit)="submit()">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label class="txt-gray-200 letter-spacing fw-600"
+                      >NOME</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control rounded-input"
+                      formControlName="name"
+                      [class.is-invalid]="
+                        form.controls.name.invalid && submitted
+                      "
+                    />
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label class="txt-gray-200 letter-spacing fw-600"
+                      >EMAIL</label
+                    >
+                    <input
+                      type="email"
+                      class="form-control rounded-input"
+                      formControlName="email"
+                      [class.is-invalid]="
+                        form.controls.email.invalid && submitted
+                      "
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label class="txt-gray-200 letter-spacing fw-600"
+                      >NÚMERO TELEFONE</label
+                    >
+                    <input
+                      type="text"
+                      mask="(00) 0000-0000||(00) 0 0000-0000"
+                      class="form-control rounded-input"
+                      formControlName="phone"
+                      [class.is-invalid]="
+                        form.controls.phone.invalid && submitted
+                      "
+                    />
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label class="txt-gray-200 letter-spacing fw-600"
+                      >SENHA</label
+                    >
+                    <input
+                      type="password"
+                      class="form-control rounded-input"
+                      formControlName="password"
+                      [class.is-invalid]="
+                        form.controls.password.invalid && submitted
+                      "
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <small class="txt-gray-200 letter-spacing fw-600"
+                    >NOTIFICAÇÕES</small
+                  >
+                  <div class="row mt-3">
+                    <div class="col-md-6">
+                      <div class="form-check form-check-inline">
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          id="taxInvoiceCheckbox"
+                          formControlName="taxInvoice"
+                        />
+                        <label
+                          class="form-check-label text-nowrap"
+                          for="taxInvoiceCheckbox"
+                          >Notas Fiscais</label
+                        >
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-check form-check-inline">
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          id="taxesCheckbox"
+                          formControlName="taxes"
+                        />
+                        <label class="form-check-label" for="taxesCheckbox"
+                          >Impostos</label
+                        >
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row mt-2">
+                    <div class="col-md-6">
+                      <div class="form-check form-check-inline">
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          id="documentsCheckbox"
+                          formControlName="documents"
+                        />
+                        <label class="form-check-label" for="documentsCheckbox"
+                          >Guias</label
+                        >
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-check form-check-inline">
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          id="remindersCheckbox"
+                          formControlName="reminders"
+                        />
+                        <label class="form-check-label" for="remindersCheckbox"
+                          >Lembretes</label
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="col-md-2 offset-2">
+            <div class="d-flex flex-column align-items-center">
+              <small class="txt-gray-200 letter-spacing"
+                >Imagem do Perfil</small
+              >
+              <div class="profile-avatar my-3"></div>
+              <button
+                type="button"
+                class="button btn btn-outline-primary btn-camera"
+              >
+                <fa-icon class="mr-2" [icon]="faCamera"></fa-icon>
+                <small class="fw-500">ALTERAR</small>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-5 pt-3">
+          <div class="d-flex justify-content-end align-items-center w-100 pr-3">
+            <button
+              type="submit"
+              form="profile-form"
+              class="btn btn-action btn-primary"
+            >
+              <img src="../../assets/icons/ic_save.svg" height="18" />
+              <small class="fw-500 ml-2">SALVAR</small>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

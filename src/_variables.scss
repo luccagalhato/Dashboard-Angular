@@ -1,0 +1,82 @@
+$gray-200: #e9ecef !default;
+$gray-300: #969ba0;
+
+$sizes: (
+  10: 10%,
+  20: 20%,
+  30: 30%,
+);
+
+$background-color: #efefef;
+
+$border-radius: 0.15rem;
+$border-radius-lg: 0.2rem;
+$border-radius-sm: 0.1rem;
+
+$font-size-base: 0.9rem;
+$font-family-base: Poppins;
+$body-color: #3e4954;
+$font-weight-base: 400;
+
+$primary: #5c50ac;
+$secondary: rgb(70, 206, 124);
+$blue: #2f4cdd;
+
+$h1-font-size: $font-size-base * 2;
+$h2-font-size: $font-size-base * 1.7;
+$h3-font-size: $font-size-base * 1.5;
+$h4-font-size: $font-size-base * 1.3;
+$h5-font-size: $font-size-base * 1.1;
+$h6-font-size: $font-size-base;
+
+$table-th-font-weight: 500;
+$table-head-color: black;
+$table-hover-bg: #f5f7ff;
+
+$btn-border-radius: 12px;
+$btn-height: 40px;
+$btn-width: 100px;
+$btn-font-weight: 600;
+$btn-box-shadow: none;
+$btn-dark-color: #adb5bd;
+$btn-success-color: #71b721;
+
+$card-border-width: 0;
+$card-border-radius: 1.25rem;
+$dropdown-border-width: 0;
+$table-border-width: 0;
+$pagination-border-width: 0;
+$nav-tabs-border-width: 0;
+
+$input-group-addon-bg: white;
+$input-box-shadow: none;
+$input-rounded-border-radius: 12px;
+
+$enable-shadows: true;
+
+$sidebar-menu-color: #969ba0;
+$sidebar-active-menu-color: #2f4cdd;
+$sidebar-active-menu-bg-color: #fafbff;
+
+$nav-link-padding-y: 0.9rem;
+$search-box-bg-color: #fdfdfd;
+$search-box-border-radius: 8px;
+$search-box-border: 1px solid #ebebeb;
+
+$table-border-radius: 12px;
+$button-border-radius: 8px;
+
+$modal-content-border-radius: 14px;
+$modal-content-border-width: 0;
+$modal-footer-border-width: 0;
+$modal-footer-border-width: 0;
+$modal-header-padding-y: 0.5rem;
+
+$dashboard-card-height: 58vh;
+
+@media screen and (min-width: 1600px) {
+  $dashboard-card-height: $dashboard-card-height * 0.9;
+}
+
+$badge-border-radius: 1rem;
+$badge-padding-x: 0.5rem;

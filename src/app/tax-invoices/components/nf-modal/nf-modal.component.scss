@@ -1,0 +1,11 @@
+.files-container {
+  height: 200px;
+  overflow: auto;
+  padding: 1rem 0;
+}
+.upload {
+  cursor: pointer;
+  &:hover {
+    filter: opacity(75%);
+  }
+}

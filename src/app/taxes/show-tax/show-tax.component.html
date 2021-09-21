@@ -1,0 +1,330 @@
+<div class="p-4">
+  <div class="d-flex">
+    <div class="flex-grow-1">
+      <h2>Impostos / Cálculo</h2>
+      <p class="text-muted">Entenda e veja os cálculos dos impostos</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="modal-header">
+      <a class="mr-3 back-btn" role="button" (click)="location.back()">
+        <img src="../../../assets/icons/btnback.svg" alt="Voltar" height="28"
+      /></a>
+
+      <section class="d-flex justify-content-between w-100">
+        <div class="pl-1">
+          <h2>{{ (tax$ | async)?.tax }}</h2>
+          <div class="text-muted font-weight-bold txt-gray-300">#{{ (tax$ | async)?.id  }} <span class="pl-4" *ngIf="tax$ | async as tax"><a *ngIf="tax.status === 'CALCULATED' && (taxDocRef$ | async) as taxDocRef" href="{{ taxDocRef.downloadURL }}">Baixar DAS</a></span> </div>
+          <small class="text-muted txt-gray-100 letter-spacing" *ngIf="periodType === 'quarter'">Trimestral</small>
+          <small class="text-muted txt-gray-100 letter-spacing" *ngIf="periodType === 'month'">Mensal</small>
+        </div>
+        <div ngbDropdown placement="bottom-right" class="d-inline-block">
+          <a role="button" id="table-show-dropdown" ngbDropdownToggle
+            ><i class="pi pi-ellipsis-v txt-gray-300"></i
+          ></a>
+          <div ngbDropdownMenu aria-labelledby="table-show-dropdown">
+            <button ngbDropdownItem>Menu 1</button>
+            <button ngbDropdownItem>Menu 2</button>
+          </div>
+        </div>
+      </section>
+    </div>
+    <div class="modal-body">
+      <div class="pl-5" *ngIf="tax$ | async as tax">
+        <section class="d-flex flex-column">
+          <h3>{{ (company$ | async)?.name }}</h3>
+          <small>Cálculo do {{ tax.tax }}</small>
+          <small class="font-weight-bold"
+            >(feito com base nas receitas das notas fiscais importadas e
+            emitidas)</small
+          >
+          <img src="../../../assets/img/hotBorder.svg" class="mt-4" alt="" />
+        </section>
+        <section class="mt-3" *ngIf="company$ | async as company">
+          <div class="row">
+            <div class="col-3">
+              <div class="d-flex flex-column">
+                <small class="txt-gray-100 letter-spacing mb-1">PERÍODO</small>
+                <span class="mb-3">{{ formatDate(tax.period) }}</span>
+                <small class="txt-gray-100 letter-spacing mb-1"
+                  >DATA DE VENCIMENTO</small
+                >
+                <small class="txt-primary">20 de abril de 2021</small>
+                <small class="">Código DARF 2372</small>
+              </div>
+            </div>
+            <div class="col-9" *ngIf="company.regime === 'Lucro Presumido' && periodType === 'quarter'">
+              <div>
+                <h4>Receitas</h4>
+                <table class="w-100">
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th *ngFor="let item of (tax.totalServicos | keyvalue)" class="text-right">
+                        <small class="txt-gray-100 letter-spacing">
+                          {{ formatDate(item.key) }}
+                        </small>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="row-desc">Receitas de Serviços</td>
+                      <td *ngFor="let item of (tax.totalServicos | keyvalue)" class="text-right">{{ item.value | currency: 'R$ ' }}</td>
+                    </tr>
+                    <tr>
+                      <td class="row-desc">Receitas de Comércio</td>
+                      <td *ngFor="let item of (tax.totalProdutos | keyvalue)" class="text-right">{{ item.value | currency: 'R$ ' }}</td>
+                    </tr>
+                    <tr>
+                      <td class="row-desc font-weight-bold">(-) Deduções</td>
+                      <td *ngFor="let item of (tax.deducoes | keyvalue)" class="text-right">{{ item.value | currency: 'R$ ' }}</td>
+                    </tr>
+
+                    <tr>
+                      <td class="row-desc font-weight-bold row-margin">
+                        Receita Líquida
+                      </td>
+                      <td *ngFor="let item of (tax.total | keyvalue)" class="text-right">{{ item.value | currency: 'R$ ' }}</td>
+                    </tr>
+
+                    <tr>
+                      <td class="row-desc font-weight-bold" colspan="5">Presunção {{ tax.tax }}</td>
+                    </tr>
+
+                    <tr>
+                      <td class="row-desc">Serviços (32%)</td>
+                      <td *ngFor="let item of (tax.totalBase32 | keyvalue)" class="text-right">{{ item.value | currency: 'R$ ' }}</td>
+                    </tr>
+
+                    <tr *ngIf="tax.totalBase12">
+                      <td class="row-desc">Comércio (12%)</td>
+                      <td *ngFor="let item of (tax.totalBase12 | keyvalue)" class="text-right">{{ item.value | currency: 'R$ ' }}</td>
+                    </tr>
+
+                    <tr *ngIf="tax.totalBase8">
+                      <td class="row-desc">Comércio (12%)</td>
+                      <td *ngFor="let item of (tax.totalBase8 | keyvalue)" class="text-right">{{ item.value | currency: 'R$ ' }}</td>
+                    </tr>
+
+                    <tr class="row-margin">
+                      <td class="row-desc">Base de cálculo {{ tax.tax }}</td>
+                      <td *ngFor="let item of (tax.baseCalculo | keyvalue)" class="text-right">{{ item.value | currency: 'R$ ' }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="col-9" *ngIf="company.regime === 'Lucro Presumido' && periodType === 'month'">
+              <div>
+                <table class="w-100">
+                  <thead>
+                    <tr>
+                      <th>
+                        <small class="txt-gray-100 letter-spacing">
+                          NF
+                        </small>
+                      </th>
+                      <th>
+                        <small class="txt-gray-100 letter-spacing">
+                          Cliente
+                        </small>
+                      </th>
+                      <th>
+                        <small class="txt-gray-100 letter-spacing">
+                          Data
+                        </small>
+                      </th>
+                      <th class="text-right">
+                        <small class="txt-gray-100 letter-spacing">
+                          Valor
+                        </small>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody *ngIf="tax$ | async as tax">
+                    <tr *ngFor="let invoice of tax.notas">
+                      <td class="">{{ invoice.id }}</td>
+                      <td class="p-1">{{ invoice.buyer.razaoSocial }}</td>
+                      <td class="p-1">{{ invoice.emissionDate | date: 'dd/MM/yyyy' }}</td>
+                      <td class="p-1 pr-0 text-right">{{ invoice.total | currency: 'R$ ' }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>       
+
+            <div class="col-9" *ngIf="(company$ | async)?.regime === 'Simples Nacional'">
+              <h4>Receitas</h4>
+                <table class="w-100" *ngIf="tax$ | async as tax">
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th>
+                        <small class="txt-gray-100 letter-spacing">
+                          Anexo
+                        </small>
+                      </th>
+                      <th>
+                        <small class="txt-gray-100 letter-spacing">
+                          Aliquota
+                        </small>
+                      </th>
+                      <th class="text-right">
+                        <small class="txt-gray-100 letter-spacing">
+                          Dedução
+                        </small>
+                      </th>
+                      <th class="text-right">
+                        <small class="txt-gray-100 letter-spacing">
+                          Receita
+                        </small>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let receita of tax.receitas">
+                      <td>{{ receita.atividade }}</td>
+                      <td>{{ receita.anexo }}</td>
+                      <td>{{ receita.aliquota | percent: '1.2-2' }}</td>
+                      <td class="text-right">{{ (receita.deducoes | currency: 'R$ ') || '-' }}</td>
+                      <td class="text-right">{{ receita.total | currency: 'R$ ' }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+            </div>
+
+            <div class="col-9" *ngIf="(company$ | async)?.regime === 'MEI'">
+              <h4>Detalhe</h4>
+                <table class="w-100" *ngIf="tax$ | async as tax">
+                  <thead>
+                    <tr>
+                      <th></th>
+
+                      <th class="text-right">
+                        <small class="txt-gray-100 letter-spacing">
+                          Valor
+                        </small>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngIf="tax.extra.inss">
+                      <td>INSS</td>
+                      <td class="text-right">{{ tax.extra.inss | currency: 'R$ ' }}</td>
+                    </tr>
+                    <tr *ngIf="tax.extra.iss">
+                      <td>ISS</td>
+                      <td class="text-right">{{ tax.extra.iss | currency: 'R$ ' }}</td>
+                    </tr>
+                    <tr *ngIf="tax.extra.icms">
+                      <td>ICMS</td>
+                      <td class="text-right">{{ tax.extra.icms | currency: 'R$ ' }}</td>
+                    </tr>
+                    <tr *ngIf="tax.extra.juros">
+                      <td>Juros</td>
+                      <td class="text-right">{{ tax.extra.juros | currency: 'R$ ' }}</td>
+                    </tr>
+                    <tr *ngIf="tax.extra.multas">
+                      <td>Multas</td>
+                      <td class="text-right">{{ tax.extra.multas | currency: 'R$ ' }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+            </div>
+          </div>
+        </section>
+
+        <ng-container *ngIf="(company$ | async)?.regime === 'Lucro Presumido'">
+          <section class="border-dashed mt-4" *ngIf="tax$ | async as tax">
+            <div class="row mt-3" *ngIf="periodType === 'quarter'">
+              <div class="offset-6 mt-2 col-6">
+                <div class="d-flex justify-content-between mb-2">
+                  <small class="txt-gray-100 letter-spacing">SUBTOTAL</small>
+                  <small>{{ tax.baseCalculo.total | currency: 'R$ ' }}</small>
+                </div>
+                <div class="d-flex justify-content-between mb-2">
+                  <small class="txt-gray-100 letter-spacing">ALÍQUOTA</small>
+                  <small>{{ tax.aliquota | percent: '1.0-2' }}</small>
+                </div>
+                <div class="d-flex justify-content-between mb-2" *ngIf="tax.extra?.total > 0">
+                  <small class="txt-gray-100 letter-spacing">SUBTOTAL EXTRA</small>
+                  <small>{{ tax.extra.total | currency: 'R$ ' }}</small>
+                </div>
+                <div class="d-flex justify-content-between mb-2" *ngIf="tax.extra?.total > 0">
+                  <small class="txt-gray-100 letter-spacing">ALÍQUOTA EXTRA</small>
+                  <small>{{ tax.extraAliquota | percent: '1.0-2' }}</small>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <small class="txt-gray-100 letter-spacing">TOTAL</small>
+                  <span class="font-weight-bold">{{ tax.imposto | currency: 'R$ ' }}</span>
+                </div>
+              </div>
+            </div>
+  
+            <div class="row mt-3" *ngIf="periodType === 'month'">
+              <div class="offset-6 mt-2 col-6">
+                <div class="d-flex justify-content-between mb-2">
+                  <small class="txt-gray-100 letter-spacing">SUBTOTAL</small>
+                  <small>{{ tax.total | currency: 'R$ ' }}</small>
+                </div>
+                <div class="d-flex justify-content-between mb-2">
+                  <small class="txt-gray-100 letter-spacing">ALÍQUOTA</small>
+                  <small>{{ tax.aliquota | percent: '1.0-2' }}</small>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <small class="txt-gray-100 letter-spacing">TOTAL</small>
+                  <span class="font-weight-bold">{{ tax.imposto | currency: 'R$ ' }}</span>
+                </div>
+              </div>
+            </div>
+          </section>
+        </ng-container>
+
+        <ng-container *ngIf="(company$ | async)?.regime === 'Simples Nacional'">
+          <section class="border-dashed mt-4" *ngIf="tax$ | async as tax">
+            <div class="row mt-3" *ngIf="periodType === 'month'">
+              <div class="offset-6 mt-2 col-6">
+                <div class="d-flex justify-content-between mb-2">
+                  <small class="txt-gray-100 letter-spacing">SUBTOTAL</small>
+                  <small>{{ tax.total | currency: 'R$ ' }}</small>
+                </div>
+                <div class="d-flex justify-content-between mb-2">
+                  <small class="txt-gray-100 letter-spacing">ALÍQUOTA EFETIVA</small>
+                  <small>{{ tax.aliquota | percent: '1.0-2' }}</small>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <small class="txt-gray-100 letter-spacing">IMPOSTO</small>
+                  <span class="font-weight-bold">{{ tax.imposto | currency: 'R$ ' }}</span>
+                </div>
+              </div>
+            </div>
+          </section>
+        </ng-container>
+
+        <ng-container *ngIf="(company$ | async)?.regime === 'MEI'">
+          <section class="border-dashed mt-4" *ngIf="tax$ | async as tax">
+            <div class="row mt-3" *ngIf="periodType === 'month'">
+              <div class="offset-6 mt-2 col-6">
+                <div class="d-flex justify-content-between mb-2">
+                  <small class="txt-gray-100 letter-spacing">SUBTOTAL</small>
+                  <small>{{ tax.total | currency: 'R$ ' }}</small>
+                </div>
+                <div class="d-flex justify-content-between mb-2">
+                  <small class="txt-gray-100 letter-spacing">ALÍQUOTA EFETIVA</small>
+                  <small>{{ tax.aliquota | percent: '1.0-2' }}</small>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <small class="txt-gray-100 letter-spacing">IMPOSTO</small>
+                  <span class="font-weight-bold">{{ tax.imposto | currency: 'R$ ' }}</span>
+                </div>
+              </div>
+            </div>
+          </section>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>

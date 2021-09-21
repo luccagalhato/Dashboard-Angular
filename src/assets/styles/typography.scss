@@ -1,0 +1,32 @@
+@import "../../_variables.scss";
+
+.txt-gray-100 {
+  color: #c7c7c7 !important;
+}
+.txt-gray-200 {
+  color: #a5a5a5 !important;
+}
+.txt-gray-300 {
+  color: #969ba0 !important;
+}
+.txt-blue {
+  color: $blue;
+}
+.txt-primary {
+  color: $primary;
+}
+.letter-spacing {
+  letter-spacing: 1px;
+}
+.fw-300 {
+  font-weight: 300 !important;
+}
+.fw-500 {
+  font-weight: 500 !important;
+}
+.fw-600 {
+  font-weight: 600 !important;
+}
+.fw-900 {
+  font-weight: 900 !important;
+}

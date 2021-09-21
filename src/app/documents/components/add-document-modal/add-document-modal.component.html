@@ -1,0 +1,182 @@
+
+<div class="modal-header">
+  <div class="d-flex justify-content-between align-items-start w-100">
+    <div class="d-flex flex-column">
+      <h2 class="font-weight-bold">Adicionar Novo Documento</h2>
+      <span class="text-muted txt-gray-200"
+
+        >Adicione novos documentos no seu controle.</span
+      >
+    </div>
+    <button
+      type="button"
+      class="close pull-right txt-gray-300"
+      aria-label="Close"
+      (click)="modalRef.dismiss()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+</div>
+
+<div class="modal-body">
+
+  <section>
+    <form [formGroup]="form" (ngSubmit)="submit()" id="add-document-form">
+      <div class="row">
+        <div class="col-12">
+          <div class="form-group" *ngIf="!getNameOptions()">
+            <small class="txt-gray-100 font-weight-bold">Nome</small>
+            <input
+              formControlName="type"
+              type="text"
+              class="form-control rounded-input"
+              [class.is-invalid]="form.controls.name.invalid && submitted"
+            />
+            <div class="invalid-feedback">Obrigatório</div>
+          </div>
+          <div class="form-group" *ngIf="getNameOptions()">
+            <small class="txt-gray-100 font-weight-bold">Tipo</small>
+            <select class="custom-select rounded-input" id="inputGroupSelect01" formControlName="type">
+              <option selected>Escolha...</option>
+              <option [value]="type.key" *ngFor="let type of getNameOptions()">{{ type.value }}</option>
+            </select>
+
+            <div class="invalid-feedback">Obrigatório</div>
+          </div>
+        </div>
+      </div>
+      <div class="row" *ngIf="relativePath === 'empresa'">
+        <div [class.col-12]="form.value.org !== 'SINTEGRA'" [class.col-8]="form.value.org === 'SINTEGRA'" *ngIf="form.value.type === 'STATE_REGISTRATION'">
+          <div class="form-group">
+            <small class="txt-gray-100 font-weight-bold">Fonte</small>
+            <select class="custom-select rounded-input" id="inputGroupSelect01" formControlName="org" disabled>
+              <option selected>Escolha...</option>
+              <option value="RECEITA_FEDERAL">Receita Federal</option>
+              <option value="SINTEGRA">Sintegra</option>
+              <option value="PREFEITURA">Prefeitura</option>
+            </select>
+
+            <div class="invalid-feedback">Obrigatório</div>
+          </div>
+        </div>
+
+        <div class="col-4" *ngIf="form.value.org === 'SINTEGRA' && form.value.type === 'STATE_REGISTRATION'">
+          <div class="form-group">
+            <small class="txt-gray-100 font-weight-bold">Estado</small>
+            <select class="custom-select rounded-input" id="inputGroupSelect01" formControlName="state">
+              <option selected>Escolha...</option>
+              <option [value]="state" *ngFor="let state of states">{{ state }}</option>
+            </select>
+
+            <div class="invalid-feedback">Obrigatório</div>
+          </div>
+        </div>
+      </div>
+      <div class="row" *ngIf="relativePath === 'certidoes'">
+        <div [class.col-12]="form.value.org !== 'SEFAZ'" [class.col-8]="form.value.org === 'SEFAZ'" *ngIf="form.value.type !== 'FGTS'">
+          <div class="form-group">
+            <small class="txt-gray-100 font-weight-bold">Fonte</small>
+            <select class="custom-select rounded-input" id="inputGroupSelect01" formControlName="org">
+              <option selected>Escolha...</option>
+              <option value="RECEITA_FEDERAL">Receita Federal</option>
+              <option value="SEFAZ">SEFAZ</option>
+              <option value="PREFEITURA">Prefeitura</option>
+            </select>
+
+            <div class="invalid-feedback">Obrigatório</div>
+          </div>
+        </div>
+        <div class="col-4" *ngIf="form.value.org === 'SEFAZ' && form.value.type === 'NCD'">
+          <div class="form-group">
+            <small class="txt-gray-100 font-weight-bold">Estado</small>
+            <select class="custom-select rounded-input" id="inputGroupSelect01" formControlName="state">
+              <option selected>Escolha...</option>
+              <option [value]="state" *ngFor="let state of states">{{ state }}</option>
+            </select>
+
+            <div class="invalid-feedback">Obrigatório</div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="form-group">
+            <small class="txt-gray-100 font-weight-bold">Descrição</small>
+            <textarea
+              formControlName="description"
+              rows="4"
+              type="text"
+              style="resize: none"
+              class="form-control rounded-input"
+              [class.is-invalid]="
+                form.controls.description.invalid && submitted
+              "
+            ></textarea>
+            <div class="invalid-feedback">Obrigatório</div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <small class="txt-gray-100 font-weight-bold">Tags</small>
+          <app-tags-input formControlName="tags"></app-tags-input>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6 d-flex align-items-center">
+          <div>
+            <input type="file" #file (change)="fileChange($event)" style="display: none;">
+            <label *ngIf="selectedFile">
+              <i class="pi pi-paperclip mr-3"></i>
+              {{ selectedFile.name }}
+            </label>
+            <div *ngIf="submitted && !selectedFile" class="text-danger">Selecione um arquivo</div>
+          </div>
+        </div>
+        <div class="col-6" *ngIf="hasExpirationDate()">
+          <div class="form-group">
+            <small class="txt-gray-100 font-weight-bold">Data de Validade</small>
+            <div class="input-group">
+              <input class="form-control rounded-input" placeholder=""
+                formControlName="expirationDate" ngbDatepicker #d="ngbDatepicker">
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary pi pi-calendar" (click)="d.toggle()" type="button"></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </section>
+</div>
+<div class="modal-footer">
+  <div class="d-flex justify-content-between align-items-center w-100">
+    <button type="button" class="btn btn-action btn-primary mr-3" (click)="file.click()" *ngIf="!isAutomatic()">
+      <img
+        src="../../../../assets/icons/icAttachment_white.svg"
+        height="16"
+        class="mr-3"
+      />
+      <span>ADICIONAR ANEXO</span>
+    </button>
+    <span></span>
+    <button type="button" class="btn btn-action btn-primary" (click)="updateDocument()" *ngIf="isAutomatic()">
+      <i class="pi pi-refresh mr-3"></i>
+      <span>ATUALIZAR DOCUMENTO</span>
+    </button>
+    <button
+      type="submit"
+      form="add-document-form"
+      class="btn btn-action save-btn"
+      *ngIf="!isAutomatic()"
+    >
+      <img
+        src="../../../../assets/icons/ic_save.svg"
+        height="16"
+        class="mr-3"
+      />
+      <span>SALVAR</span>
+    </button>
+  </div>
+</div>

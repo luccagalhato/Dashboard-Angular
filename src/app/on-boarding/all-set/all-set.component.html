@@ -1,0 +1,38 @@
+<div class="row">
+  <div class="col-12 d-flex justify-content-end px-4">
+    <button class="btn" (click)="logout()">
+      <fa-icon class="ml-2 mr-3" [icon]="faExit"></fa-icon> Sair
+    </button>
+  </div>
+</div>
+<div class="row">
+  <div class="col-3 px-5">
+    <div class="logo text-center flex-grow-1 hideable mb-3">
+      <img src="/assets/img/logo.png" class="w-50">
+    </div>
+
+    <p>Bem vindo(a)</p>
+    <p style="line-height: 2;">Para começar, vamos realizar alguns ajustes na plataforma para você aproveitar 100% dos nossos recursos.</p>
+
+    <ul class="steps">
+      <li class="text-secondary"><fa-icon class="ml-2 mr-3 text-secondary" [icon]="faCheckCircle"></fa-icon>Autenticação</li>
+      <li class="text-secondary"><fa-icon class="ml-2 mr-3 text-secondary" [icon]="faCheckCircle"></fa-icon>Dados da Empresa</li>
+      <li class="text-secondary"><fa-icon class="ml-2 mr-3 text-secondary" [icon]="faCheckCircle"></fa-icon>Pagamento</li>
+      <li class="text-secondary"><fa-icon class="ml-2 mr-3 text-secondary" [icon]="faCheckCircle"></fa-icon>Dados Fiscais</li>
+      <li class="text-secondary"><fa-icon class="ml-2 mr-3 text-secondary" [icon]="faCheckCircle"></fa-icon>Notas Fiscais</li>
+      <li class="text-secondary"><fa-icon class="ml-2 mr-3 text-secondary" [icon]="faCheckCircle"></fa-icon>Importação</li>
+    </ul>
+  </div>
+
+  <div class="col-9 px-5">
+    <h2 class="text-center mb-3">Tudo Pronto!</h2>
+    <p>Agora você está preparado(a) para aproveitar ao máximo os recursos da nossa plataforma Negócio Simples.</p>
+
+    <div class="row">
+      <div class="col-12 d-flex justify-content-between">
+        <button type="button" class="btn btn-link" (click)="location.back()">Voltar</button>
+        <button type="button" class="btn btn-primary rounded-pill" routerLink="/dashboard">Continuar</button>
+      </div>
+    </div>
+  </div>
+</div>

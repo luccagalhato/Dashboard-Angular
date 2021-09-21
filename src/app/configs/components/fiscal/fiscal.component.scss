@@ -1,0 +1,103 @@
+.form-control {
+  font-weight: 500;
+}
+
+.refresh-btn {
+  background: #e9ecff;
+  border-radius: 8px;
+}
+
+.padding {
+  padding-top: 1.5rem;
+}
+
+section.item {
+  padding-bottom: 2.5rem;
+  padding-right: 6rem;
+
+  small {
+    font-size: 10px;
+  }
+  .total {
+    padding: 0.5rem 0 0 1.25rem;
+    margin-top: 2rem;
+    border-top: 1px dashed #c7c7c79c;
+
+    span {
+      font-size: 16px;
+    }
+  }
+}
+
+::ng-deep {
+  .p-datatable .p-datatable-thead > tr > th {
+    padding: 0.4rem 1rem;
+  }
+  .p-datatable .p-datatable-tbody > tr > td {
+    padding: 0.4rem 1rem;
+    font-size: 12px !important;
+    font-family: "Poppins";
+  }
+  .p-calendar .p-inputtext {
+    height: 25px;
+    font-size: 12px;
+    text-align: start;
+  }
+
+  .p-inputtext:enabled:focus {
+    box-shadow: none !important;
+    border-color: #334cdd;
+    border-width: 2px;
+    color: #000;
+    font-family: "Poppins";
+  }
+
+  // month-picker-customs
+
+  .p-datepicker .p-datepicker-header .p-datepicker-prev:enabled,
+  .p-datepicker .p-datepicker-header .p-datepicker-next:enabled {
+    box-shadow: none !important;
+  }
+
+  .p-datepicker .p-monthpicker .p-monthpicker-month {
+    font-size: 11px;
+    font-family: "Poppins";
+    &:focus,
+    &:active {
+      outline: none !important;
+      box-shadow: none !important;
+    }
+  }
+  .p-datepicker .p-monthpicker .p-monthpicker-month.p-highlight {
+    background: #5c50ac;
+    &:focus,
+    &:active {
+      outline: none !important;
+      box-shadow: none !important;
+    }
+  }
+  .p-datepicker:not(.p-datepicker-inline) .p-datepicker-header {
+    background: #e0e0e07d;
+  }
+
+  .p-datepicker {
+    border-radius: 12px;
+    margin-top: 5px;
+  }
+  .p-datepicker .p-datepicker-header {
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+  }
+
+  .p-datepicker .p-datepicker-header .p-datepicker-title select {
+    font-family: "Poppins";
+    font-size: 13px;
+    border-radius: 4px;
+    &:focus,
+    &:active {
+      outline: none;
+      box-shadow: none;
+      border-color: #000;
+    }
+  }
+}

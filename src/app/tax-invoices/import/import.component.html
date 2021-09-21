@@ -1,0 +1,70 @@
+<div class="modal-header">
+  <h4 class="modal-title pull-left mb-2">Importar Notas Fiscais</h4>
+  <button type="button" class="close pull-right" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <small class="text-muted"
+  >Importe seus arquivos xml das notas fiscais.</small
+  >
+  <small class="text-muted"
+    >Selecione até 100 arquivos XML para fazer a importação, podendo
+    importar entradas e saídas na mesma remesa.</small
+  >
+
+  <div class="w-100 pt-4 files-container d-flex flex-column align-items-center justify-content-center">
+    <input type="file" #file style="display: none" accept=".xml" (change)="fileChange($event)" multiple>
+
+    <div
+      (click)="file.click()"
+      class="upload d-flex align-items-center w-50 py-4"
+      *ngIf="files.length === 0; else filesTemplate"
+    >
+      <img src="../../assets/icons/upload.svg" height="25" />
+      <span class="ml-2 text-muted">Selecione os arquivos para fazer o upload</span>
+    </div>
+    <ng-template #filesTemplate>
+      <ng-container *ngIf="files.length < 4">
+        <div class="mb-2 text-left" *ngFor="let file of files">
+          <small class="text-muted">{{ file.name }}</small>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="files.length >= 4">
+        <div class="mb-2">
+          <small class="text-muted">{{ files.length }} arquivos selecionados</small>
+        </div>
+      </ng-container>
+    </ng-template>
+
+  </div>
+
+  <div *ngIf="fileWithErrors().length > 0">
+    <div class="card mt-3">
+      <div class="card-header text-danger d-flex align-items-center pr-2">
+        <strong>{{ fileWithErrors().length }} arquivos com erro</strong>
+        <span class="flex-grow-1"></span>
+        <button type="button" class="btn btn-link" (click)="downloadFile()"><fa-icon [icon]="downloadIcon"></fa-icon></button>
+      </div>
+      <div class="card-body failed-items px-0 pt-0">
+        <ul class="list-group">
+          <li class="list-group-item" *ngFor="let file of fileWithErrors()">
+            <div><small>{{ file.name }}</small></div>
+            <div class="text-danger"><small>{{ file.error}}</small></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <button
+    type="button"
+    class="btn btn-action btn-dark"
+    (click)="activeModal.dismiss('Cross click')"
+  >
+    Cancelar
+  </button>
+  <button type="button" class="btn btn-action btn-success" (click)="uploadFiles()">Fazer Upload</button>
+</div>

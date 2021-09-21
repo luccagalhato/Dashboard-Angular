@@ -1,0 +1,53 @@
+<div class="modal-header">
+  <div class="d-flex justify-content-between align-items-start">
+    <div class="d-flex flex-column">
+      <h4 class="modal-title pull-left mb-2">Nova Importação</h4>
+      <small class="text-muted"
+        >Importe seus arquivos xml das notas fiscais.</small
+      >
+      <small class="text-muted"
+        >Selecione até 100 arquivos XML para fazer a importação, podendo
+        importar entradas e saídas na mesma remesa.</small
+      >
+    </div>
+    <button
+      type="button"
+      class="close pull-right"
+      aria-label="Close"
+      (click)="modalRef.dismiss()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+</div>
+<div class="modal-body">
+  <div
+    class="w-100 files-container d-flex flex-column align-items-center justify-content-center"
+  >
+    <div
+      (click)="importFiles()"
+      class="upload d-flex align-items-center w-50"
+      *ngIf="_files.length === 0; else files"
+    >
+      <img src="../../assets/icons/upload.svg" height="25" />
+      <span class="ml-2 text-muted"
+        >Selecione os arquivos para fazer o upload</span
+      >
+    </div>
+    <ng-template #files>
+      <div class="mb-2" *ngFor="let file of _files">
+        <span>{{ file.name }}</span>
+      </div>
+    </ng-template>
+  </div>
+</div>
+<div class="modal-footer">
+  <button
+    type="button"
+    class="btn btn-action btn-dark"
+    (click)="modalRef.dismiss()"
+  >
+    Cancelar
+  </button>
+  <button type="button" class="btn btn-action btn-success">Importar</button>
+</div>

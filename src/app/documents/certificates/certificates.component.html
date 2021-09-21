@@ -1,0 +1,13 @@
+<ng-container *ngIf="files$ | async as files; else loading">
+  <ng-container *ngIf="files.length > 0; else noContent">
+    <app-doc-list-item [file]="file" *ngFor="let file of files"></app-doc-list-item>
+  </ng-container>
+</ng-container>
+
+<ng-template #noContent>
+  Nenhum arquivo ainda.
+</ng-template>
+
+<ng-template #loading>
+  Carregando...
+</ng-template>

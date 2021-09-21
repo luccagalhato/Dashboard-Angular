@@ -1,0 +1,16 @@
+.calculation-btn {
+  background-color: #2bc155;
+  color: #fff;
+
+  &:hover {
+    filter: brightness(0.95);
+  }
+}
+.simulation-btn {
+  background-color: #1eaae7;
+  color: #fff;
+
+  &:hover {
+    filter: brightness(0.95);
+  }
+}

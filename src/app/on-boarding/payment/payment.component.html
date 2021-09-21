@@ -1,0 +1,122 @@
+<div class="row">
+  <div class="col-12 d-flex justify-content-end px-4">
+    <button class="btn" (click)="logout()">
+      <fa-icon class="ml-2 mr-3" [icon]="faExit"></fa-icon> Sair
+    </button>
+  </div>
+</div>
+<div class="row">
+  <div class="col-3 px-5">
+    <div class="logo text-center flex-grow-1 hideable mb-3">
+      <img src="/assets/img/logo.png" class="w-50">
+    </div>
+
+    <p>Bem vindo(a)</p>
+    <p style="line-height: 2;">Para começar, vamos realizar alguns ajustes na plataforma para você aproveitar 100% dos nossos recursos.</p>
+
+    <ul class="steps">
+      <li class="text-secondary"><fa-icon class="ml-2 mr-3 text-secondary" [icon]="faCheckCircle"></fa-icon>Autenticação</li>
+      <li class="text-secondary"><fa-icon class="ml-2 mr-3 text-secondary" [icon]="faCheckCircle"></fa-icon>Dados da Empresa</li>
+      <li class="text-primary"><fa-icon class="ml-2 mr-3 text-primary" [icon]="faCircleNotch"></fa-icon>Pagamento</li>
+      <li><fa-icon class="ml-2 mr-3" [icon]="faCircleNotch"></fa-icon>Dados Fiscais</li>
+      <li><fa-icon class="ml-2 mr-3" [icon]="faCircleNotch"></fa-icon>Notas Fiscais</li>
+      <li><fa-icon class="ml-2 mr-3" [icon]="faCircleNotch"></fa-icon>Importação</li>
+    </ul>
+  </div>
+
+  <div class="col-9 px-5" [formGroup]="form">
+    <h2 class="text-center mb-3">Escolha seu Plano</h2>
+    <p class="text-center mb-3"><small>Nós temos planos que se encaixam perfeitamente ao seu negócio. Veja os planos disponíveis:</small></p>
+
+    <div class="row mb-4">
+      <div class="col-4">
+        <div class="card shadow-lg">
+          <div class="card-body px-2">
+            <h5 class="card-title mb-5">GRÁTIS</h5>
+            <p class="card-text mb-4">
+              <strong>R$ 0,00</strong>/<br>
+              <small>Mês</small>
+            </p>
+            <ul>
+              <li>Limite de 5 notas fiscais importadas por mês</li>
+              <li>Cálculo automático do imposto</li>
+              <li>Atende <strong>Simples ou Lucro Presumido</strong></li>
+              <li>Gestão de notificação e documentos</li>
+              <li>Ideal para empresas com pouco volume de notas</li>
+              <li>Suporte via chat e e-mail</li>
+            </ul>
+            
+            <ng-container *ngIf="!stripeRole">
+              <a routerLink="/cadastro/dados-fiscais" class="btn btn-primary rounded-pill mt-4" *ngIf="!stripeRole">Selecionar</a>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-4">
+        <div class="card shadow-lg">
+          <div class="card-body px-2">
+            <h5 class="card-title mb-5">MEI</h5>
+            <p class="card-text mb-4">
+              <strong>R$ 24,90</strong>/<br>
+              <small>Mês</small>
+            </p>
+            <ul>
+              <li>Importe notas ilimitadas</li>
+              <li>Cálculo automático do imposto</li>
+              <li>Tenha controle sobre suas guias</li>
+              <li>Gestão de notificação e documentos</li>
+              <li>Ideal para micro empreendedor individual</li>
+              <li>Suporte via chat e e-mail</li>
+            </ul>
+            
+            <ng-container *ngIf="!stripeRole || stripeRole === meiPlanRole">
+              <a class="btn btn-primary rounded-pill mt-4" (click)="createSessionMei()" *ngIf="!stripeRole">Selecionar</a>
+              <button class="btn btn-success rounded-pill mt-4" disabled *ngIf="stripeRole">
+                <fa-icon class="mr-3 text-white" [icon]="faCheckCircle"></fa-icon>
+                Confirmado
+              </button>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="col-4">
+        <div class="card shadow-lg">
+          <div class="card-body px-2">
+            <h5 class="card-title mb-5">BÁSICO</h5>
+            <p class="card-text mb-4">
+              <strong>R$ 49,90</strong>/<br>
+              <small>Mês</small>
+            </p>
+            <ul>
+              <li>Importe notas ilimitadas</li>
+              <li>Cálculo automático do imposto</li>
+              <li><strong>Simule</strong> quanto você pagaria de imposto</li>
+              <li>Acompanhe a <strong>apuração de seus impostos</strong></li>
+              <li>Ideal para empresas com alto volume de notas</li>
+              <li>Suporte via chat e e-mail</li>
+            </ul>
+            
+            <ng-container *ngIf="!stripeRole || stripeRole === defaultPlanRole">
+              <a class="btn btn-primary rounded-pill mt-4" (click)="createSessionBasic()" *ngIf="!stripeRole">Selecionar</a>
+              <button class="btn btn-success rounded-pill mt-4" disabled *ngIf="stripeRole">
+                <fa-icon class="mr-3 text-white" [icon]="faCheckCircle"></fa-icon>
+                Confirmado
+              </button>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12 d-flex justify-content-around">
+        <button type="button" class="btn btn-link" routerLink="/cadastro/empresa">Voltar</button>
+        <button type="button" class="btn btn-link" routerLink="/cadastro/dados-fiscais" *ngIf="!stripeRole">Pular</button>
+        <button type="button" class="btn btn-primary" routerLink="/cadastro/dados-fiscais" *ngIf="stripeRole">Continuar</button>
+      </div>
+    </div>
+  </div>
+</div>

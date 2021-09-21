@@ -1,0 +1,316 @@
+<ng-sidebar-container [animate]="true">
+  <!-- disable content animation by [animate] input above -->
+  <!-- Sidebar -->
+
+  <ng-sidebar
+    #sidebar
+    [mode]="innerWidth < 992 ? 'over' : 'push'"
+    [animate]="true"
+    [(opened)]="sidebarOpen"
+  >
+    <div class="sidenav" [class.closed]="!sidebarOpen">
+      <div class="side-header d-flex align-items-center pl-3 pr-1 pt-4 mb-4">
+        <div class="logo flex-grow-1 hideable" [class.hidden]="!sidebarOpen">
+          <img src="../../assets/img/logo.png" height="46" />
+        </div>
+        <button
+          type="button"
+          class="btn btn-link mr-1"
+          (click)="sidebarOpen = !sidebarOpen"
+        >
+          <fa-icon [icon]="faBars" class="menu-icon"></fa-icon>
+        </button>
+      </div>
+      <div>
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              [class.active]="isActive('/dashboard')"
+              routerLink="/dashboard"
+            >
+              <img
+                class="nav-link-icon mx-3"
+                [src]="
+                  isActive('/dashboard')
+                    ? '../../assets/icons/ic_dashboard_active.svg'
+                    : '../../assets/icons/ic_dashboard.svg'
+                "
+                alt=""
+              />
+              <span class="hideable" [class.hidden]="!sidebarOpen"
+                >Dashboard</span
+              >
+            </a>
+          </li>
+          <div class="gradient-border"></div>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              [class.active]="isActive('/contatos')"
+              routerLink="/contatos"
+            >
+              <img
+                class="nav-link-icon mx-3"
+                [src]="
+                  isActive('/contatos')
+                    ? '../../assets/icons/ic_customer_active.svg'
+                    : '../../assets/icons/ic_customer.svg'
+                "
+                alt=""
+              />
+              <span class="hideable" [class.hidden]="!sidebarOpen"
+                >Contatos</span
+              >
+            </a>
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              [class.active]="isActive('/notasFiscais')"
+              role="button"
+              (click)="collapse.toggle()"
+              [attr.aria-expanded]="!isCollapsed"
+              aria-controls="collapseExample"
+            >
+              <img
+                class="nav-link-icon mx-3"
+                [src]="
+                  isActive('/notasFiscais')
+                    ? '../../assets/icons/ic_nf_active.svg'
+                    : '../../assets/icons/ic_nf.svg'
+                "
+                alt=""
+              />
+
+              <span class="hideable" [class.hidden]="!sidebarOpen"
+                >Notas Fiscais</span
+              >
+              <img
+                [src]="
+                  !isActive('/notasFiscais')
+                    ? '../../assets/icons/ic_chevron_right.svg'
+                    : '../../assets/icons/ic_chevron_down.svg'
+                "
+                class="chevron-menu"
+              />
+            </a>
+          </li>
+          <div
+            #collapse="ngbCollapse"
+            [ngbCollapse]="!isActive('/notasFiscais')"
+          >
+            <ul class="nav flex-column">
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  routerLinkActive="active-sub-menu"
+                  routerLink="/notasFiscais/importar"
+                >
+                  <span class="nav-link-spacer"></span>
+                  <span class="hideable" [class.hidden]="!sidebarOpen"
+                    >Importar</span
+                  >
+                </a>
+              </li>
+            </ul>
+          </div>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              routerLinkActive="active-sub-menu"
+              routerLink="/impostos"
+              [class.active]="isActive('/impostos')"
+            >
+              <img
+                class="nav-link-icon mx-3"
+                [src]="
+                  isActive('/impostos')
+                    ? '../../assets/icons/ic_menus_active.svg'
+                    : '../../assets/icons/ic_menus.svg'
+                "
+                alt=""
+              />
+
+              <span class="hideable" [class.hidden]="!sidebarOpen"
+                >Impostos</span
+              >
+            </a>
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              [class.active]="isActive('/documentos')"
+              routerLink="/documentos/empresa"
+            >
+              <img
+                class="nav-link-icon mx-3"
+                [src]="
+                  isActive('/documentos/empresa')
+                    ? '../../assets/icons/ic_analytics_active.svg'
+                    : '../../assets/icons/ic_analytics.svg'
+                "
+                alt=""
+              />
+
+              <span class="hideable" [class.hidden]="!sidebarOpen"
+                >Documentos</span
+              >
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div
+        class="
+          d-flex
+          flex-column
+          align-items-center
+          justify-content-center
+          pt-5
+          px-5
+        "
+      >
+        <img src="../../assets/img/upgrade.svg" height="90" />
+        <small class="mt-2 fw-600 txt-blue">Importação Ilimitada</small>
+        <small class="mt-2 fw-300 txt-blue text-center"
+          >Atualize seu plano e tenha acesso à importação ilimitada.</small
+        >
+        <button class="btn sign-button" routerLink="contas-e-cobrancas/geral">
+          Assinar
+        </button>
+      </div>
+    </div>
+  </ng-sidebar>
+
+  <!-- Page content -->
+  <div ng-sidebar-content (scroll)="onWindowScroll($event)">
+    <div class="content d-flex flex-column" [class.closed]="!sidebarOpen">
+      <div class="header py-3 pr-4 pl-2">
+        <div class="sidebar-toggle">
+          <button
+            type="button"
+            class="btn btn-link mr-1"
+            *ngIf="!sidebarOpen"
+            (click)="sidebarOpen = !sidebarOpen"
+          >
+            <fa-icon [icon]="faBars" class="menu-icon"></fa-icon>
+          </button>
+        </div>
+        <div class="d-flex align-items-center">
+          <div class="header-links d-none d-md-block">
+            <a href="https://negociosimples.zendesk.com" target="_blank"
+              >Suporte</a
+            >
+          </div>
+
+          <div class="d-flex pl-none pl-md-4 status-buttons">
+            <div class="d-inline-block" ngbDropdown>
+              <button
+                type="button"
+                id="conversation"
+                class="btn mr-3 status-button button-notification"
+                ngbDropdownToggle
+              >
+                <img src="../../assets/icons/ic_bell.svg" height="18" alt="" />
+                <!-- <span class="badge">12</span> -->
+              </button>
+
+              <div ngbDropdownMenu aria-labelledby="conversation">
+                <button ngbDropdownItem (click)="logout()">Sair</button>
+              </div>
+            </div>
+
+            <div class="d-inline-block" (click)="openChat()">
+              <button
+                type="button"
+                id="chat"
+                class="btn mr-3 status-button button-chat"
+              >
+                <img src="../../assets/icons/ic_chat.svg" height="18" alt="" />
+              </button>
+            </div>
+
+            <button
+              type="button"
+              id="settings"
+              class="btn mr-3 mr-md-4 status-button button-settings"
+              (click)="router.navigate(['configuracoes'])"
+            >
+              <img src="../../assets/icons/ic_setting.svg" height="18" alt="" />
+              <!-- <span class="badge">!</span> -->
+            </button>
+          </div>
+
+          <div class="pl-none pl-md-4">
+            <div class="d-inline-block" ngbDropdown>
+              <button
+                type="button"
+                id="dropdownManual"
+                class="btn text-nowrap position-relative avatar-button"
+                ngbDropdownToggle
+              >
+                Olá,
+                <strong class="pr-3">{{ username }}</strong>
+                <div class="rounded-circle avatar">
+                  <img [src]="avatarUrl" />
+                </div>
+              </button>
+
+              <div
+                ngbDropdownMenu
+                aria-labelledby="dropdownManual"
+                class="user-menu"
+              >
+                <div class="user-menu-profile border-bottom d-flex">
+                  <div class="rounded-circle customer-avatar">
+                    <img [src]="avatarUrl" />
+                  </div>
+                  <div class="d-flex flex-column">
+                    <span class="name mb-1">{{ username }}</span>
+                    <span class="customer-email mb-1">{{ email }}</span>
+                    <a class="link" role="button" [routerLink]="'/perfil'"
+                      >Perfil</a
+                    >
+                  </div>
+                </div>
+                <div class="user-menu-company border-bottom">
+                  <div
+                    class="
+                      d-flex
+                      justify-content-between
+                      align-items-center
+                      mb-2
+                    "
+                  >
+                    <ng-container *ngIf="company$ | async as company">
+                      <div class="name">{{ company.name }}</div>
+                      <div class="cnpj">
+                        {{ company.cnpj | mask: "00.000.000/0000-00" }}
+                      </div>
+                    </ng-container>
+                  </div>
+                  <a role="button" class="link">Trocar empresa</a>
+                </div>
+                <div class="user-menu-links border-bottom">
+                  <button
+                    ngbDropdownItem
+                    (click)="router.navigate(['contas-e-cobrancas'])"
+                  >
+                    Contas e Cobrança
+                  </button>
+                  <button ngbDropdownItem>Planos</button>
+                </div>
+                <div class="user-menu-logout">
+                  <button ngbDropdownItem (click)="logout()">Sair</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+</ng-sidebar-container>

@@ -1,0 +1,186 @@
+@import "../../_variables.scss";
+
+.custom-table {
+  border-radius: 12px !important;
+
+  .status-cell {
+    border-radius: 8px;
+    height: 35px;
+    width: fit-content;
+    text-transform: capitalize;
+    font-weight: 600;
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &.orange {
+      color: #ff6d4d;
+      background-color: #ff6e4d10;
+    }
+
+    &.blue {
+      color: $blue;
+      background-color: rgba($blue, 0.1);
+    }
+
+    &.green {
+      color: #2bc155;
+      background-color: #2bc15610;
+    }
+  }
+}
+
+p-table {
+  .p-paginator {
+    justify-content: flex-end !important;
+    background: transparent !important;
+    padding-top: 1.5rem;
+  }
+
+  .p-paginator-first,
+  .p-paginator-last {
+    display: none !important;
+  }
+  .p-paginator-prev,
+  .p-paginator-next {
+    color: #fff !important;
+    border-radius: 6px !important;
+    height: 40px !important;
+    border: none !important;
+  }
+
+  .p-paginator-next {
+    background: $blue !important;
+    margin-left: 1rem !important;
+    display: flex;
+    align-items: center;
+    .p-paginator-icon {
+      display: flex;
+      align-items: center;
+      &::before {
+        content: "Próximo";
+        font-family: "Poppins";
+        padding: 0 0.2rem 0 1rem;
+      }
+      &::after {
+        content: url("../icons/ic_paginator_right.svg");
+        width: 24px;
+        height: 24px;
+        padding-right: 2rem;
+      }
+    }
+  }
+
+  .p-paginator-prev {
+    background: $gray-300 !important;
+    margin-right: 1rem !important;
+
+    .p-paginator-icon {
+      display: flex;
+      align-items: center;
+      &::after {
+        content: "Anterior";
+        font-family: "Poppins";
+        padding: 0 1rem 0 0.5rem;
+      }
+      &::before {
+        content: url("../icons/ic_paginator_left.svg");
+        width: 24px;
+        height: 24px;
+        margin-left: 0.4rem;
+      }
+    }
+  }
+
+  .p-paginator-pages {
+    background: rgba(227, 228, 235, 1);
+    border-radius: 6px;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    height: 40px;
+  }
+
+  .p-paginator-page {
+    border-radius: 6px !important;
+    background: rgba(227, 228, 235, 1) !important;
+    color: $blue !important;
+    height: 32px !important;
+    width: 32px !important;
+  }
+  .p-paginator .p-paginator-pages .p-paginator-page.p-highlight {
+    background: #fff !important;
+    border-color: #fff !important;
+    color: black !important;
+  }
+
+  .p-paginator-left-content {
+    color: black;
+    font-size: 14px;
+  }
+  .p-datatable .p-datatable-tbody > tr > td {
+    font-weight: 400;
+    font-size: 14px;
+    border-bottom: 1px solid #c7c7c723;
+  }
+
+  .no-row-border {
+    td {
+      border: none !important;
+    }
+    .p-datatable .p-datatable-tbody > tr > td {
+      border: none !important;
+    }
+  }
+
+  .pi-sort-alt:before {
+    content: url("../icons/ic_sort.svg");
+  }
+
+  .pi-sort-amount-up-alt:before {
+    content: url("../icons/ic_sort_up.svg");
+  }
+
+  .pi-sort-amount-down:before {
+    content: url("../icons/ic_sort_down.svg");
+  }
+
+  .p-datatable .p-sortable-column:focus {
+    box-shadow: none !important;
+  }
+
+  .p-datatable .p-sortable-column.p-highlight {
+    color: black !important;
+  }
+  .p-datatable .p-sortable-column,
+  .p-datatable .p-datatable-tbody > tr {
+    &:hover {
+      background: #fff !important;
+    }
+  }
+
+  .p-datatable .p-datatable-tbody > tr {
+    &:hover {
+      background: #f5f7ff !important;
+    }
+  }
+
+  .p-datatable .p-datatable-thead > tr > th {
+    border-top: none;
+    border-color: #d3d6e436 !important;
+    font-size: 15px;
+    font-weight: 500;
+  }
+
+  thead {
+    tr {
+      th:first-of-type {
+        border-top-left-radius: $table-border-radius;
+      }
+      th:last-of-type {
+        border-top-right-radius: $table-border-radius;
+      }
+    }
+  }
+}

@@ -1,0 +1,674 @@
+<div class="row mt-4">
+  <div class="col-lg-3 mb-4 mb-lg-0">
+    <div class="card sm-card">
+      <div class="card-body d-flex align-items-center">
+        <div class="d-flex align-items-center icon-container pr-4">
+          <div
+            class="rounded-circle d-flex align-items-center justify-content-center"
+          >
+            <img src="../../../assets/icons/ic_coffee.svg" height="40" alt="" />
+          </div>
+        </div>
+        <div class="d-flex flex-column">
+          <h1 class="mb-0 card-value-small text-nowrap text-truncate">0</h1>
+          <span class="medium-txt">Emitidas</span>
+          <div class="d-flex align-items-center">
+            <img src="../../assets/icons/graph_positive.svg" alt="" />
+            <small class="ml-1 text-muted text-nowrap">4% (30 days)</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-3 mb-4 mb-lg-0">
+    <div class="card sm-card">
+      <div class="card-body d-flex align-items-center">
+        <div class="d-flex align-items-center icon-container pr-4">
+          <div
+            class="rounded-circle d-flex align-items-center justify-content-center"
+          >
+            <img src="../../../assets/icons/ic_dollar.svg" height="40" alt="" />
+          </div>
+        </div>
+        <div class="d-flex flex-column">
+          <h1 class="mb-0 card-value-small">{{ 0 }}</h1>
+          <span class="medium-txt">Emitidas</span>
+          <div class="d-flex align-items-center">
+            <img src="../../assets/icons/graph_negative.svg" alt="" />
+            <small class="ml-1 text-muted text-nowrap">4% (30 days)</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-3 mb-4 mb-lg-0">
+    <div class="card sm-card">
+      <div class="card-body d-flex align-items-center">
+        <div class="d-flex align-items-center icon-container pr-4">
+          <div
+            class="rounded-circle d-flex align-items-center justify-content-center"
+          >
+            <img
+              src="../../../assets/icons/ic_activity.svg"
+              height="40"
+              alt=""
+            />
+          </div>
+        </div>
+        <div class="d-flex flex-column">
+          <h1 class="mb-0 card-value-small">
+            {{ 0 }}
+          </h1>
+          <span class="medium-txt">Recebidas</span>
+          <div class="d-flex align-items-center">
+            <img src="../../assets/icons/graph_positive.svg" alt="" />
+            <small class="ml-1 text-muted text-nowrap">4% (30 days)</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-3">
+    <div class="card sm-card">
+      <div class="card-body d-flex align-items-center">
+        <div class="d-flex align-items-center icon-container pr-4">
+          <div
+            class="rounded-circle d-flex align-items-center justify-content-center"
+          >
+            <img
+              src="../../../assets/icons/ic_customer _2.svg"
+              height="40"
+              alt=""
+            />
+          </div>
+        </div>
+        <div class="d-flex flex-column">
+          <h1 class="mb-0 card-value-small">{{ 0 }}</h1>
+          <span class="medium-txt">Recebidas</span>
+          <div class="d-flex align-items-center">
+            <img src="../../assets/icons/graph_positive.svg" alt="" />
+            <small class="ml-1 text-muted text-nowrap">4% (30 days)</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section>
+  <div class="row mt-4">
+    <div class="col-md-6">
+      <div class="d-flex flex-column">
+        <div class="card dashboard-card nf-emitted mb-4">
+          <div class="card-header pt-3">
+            <div
+              class="d-flex w-100 justify-content-between align-items-center"
+            >
+              <div>
+                <h5>Notas Fiscais Emitidas</h5>
+                <small class="txt-gray-200"
+                  >Todas as notas fiscais emitidas</small
+                >
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="d-flex pt-2 mb-3">
+              <div>
+                <div class="d-flex align-items-center mr-5">
+                  <img
+                    src="../../../../assets/icons/ic_stat.svg"
+                    class="mr-3"
+                  />
+                  <h4 class="fw-900 mb-0">257k</h4>
+                </div>
+                <small class="txt-gray-300">Total</small>
+              </div>
+              <div>
+                <div class="d-flex align-items-center">
+                  <img
+                    src="../../../../assets/icons/ic_stat.svg"
+                    class="mr-3"
+                  />
+                  <h4 class="fw-900 mb-0">1.234</h4>
+                </div>
+                <small class="txt-gray-300">Tíquete Médio</small>
+              </div>
+            </div>
+            <div class="d-block py-3">
+              <canvas
+                id="invoices-chart"
+                #invoicesChart
+                baseChart
+                [datasets]="lineChartData"
+                [labels]="lineChartLabels"
+                [options]="lineChartOptions"
+                [colors]="lineChartColors"
+                [legend]="false"
+                [chartType]="lineChartType"
+              >
+              </canvas>
+            </div>
+          </div>
+        </div>
+        <div class="card dashboard-card-no-size mb-4">
+          <div class="card-header pt-3">
+            <div>
+              <h5>Resumo Notas Fiscais</h5>
+              <small class="txt-gray-200"
+                >Veja o resumo das suas notas fiscais</small
+              >
+            </div>
+          </div>
+          <div class="card-body">
+            <section class="mb-2 pt-3">
+              <div class="row">
+                <div class="col-4">
+                  <div class="card border-card summary-card">
+                    <h4 class="font-weight-bold">
+                      {{ fakeNfSummaryStats[0] }}
+                    </h4>
+                    <h6 class="txt-gray-200 mb-0 fw-500 text-nowrap">
+                      Emitidas
+                    </h6>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="card border-card summary-card">
+                    <h4 class="font-weight-bold">
+                      {{ fakeNfSummaryStats[1] }}
+                    </h4>
+                    <h6 class="txt-gray-200 mb-0 fw-500 text-nowrap">
+                      Recebidas
+                    </h6>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="card border-card summary-card">
+                    <h4 class="font-weight-bold">
+                      {{ fakeNfSummaryStats[2] }}
+                    </h4>
+                    <h6 class="txt-gray-200 mb-0 fw-500 text-nowrap">
+                      Canceladas
+                    </h6>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <section class="mt-3">
+              <div class="row no-gutters d-flex align-items-center">
+                <div class="col-4">
+                  <div style="display: block" style="margin-left: -2rem">
+                    <canvas
+                      baseChart
+                      [data]="nfSummaryChartData"
+                      [labels]="nfSummaryChartLabels"
+                      [chartType]="nfSummaryChartType"
+                      [colors]="nfSummaryChartColors"
+                      [options]="nfSummaryChartOptions"
+                      [width]="130"
+                    >
+                    </canvas>
+                  </div>
+                </div>
+                <div class="col-8">
+                  <div class="nf-summary-details" style="margin-left: -1rem">
+                    <table>
+                      <thead>
+                        <th class="label-column-width"></th>
+                        <th></th>
+                        <th class="ml-5 pl-5" style="width: 10%"></th>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td class="fw-500">
+                            <small class="text-nowrap"
+                              >Emitidas ({{
+                                fakeNfSummaryStats[0] / fakeNfSummaryTotal
+                                  | percent
+                              }})</small
+                            >
+                          </td>
+                          <td>
+                            <span
+                              class="bar"
+                              [style.background]="
+                                'linear-gradient(90deg, #2bc155 ' +
+                                (fakeNfSummaryStats[0] / fakeNfSummaryTotal) *
+                                  100 +
+                                '%, #f3f3f3 0%)'
+                              "
+                            ></span>
+                          </td>
+                          <td class="text-right">
+                            <span class="txt-gray-200 text-nowrap fw-500">{{
+                              fakeNfSummaryStats[0]
+                            }}</span>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td class="fw-500">
+                            <small class="text-nowrap"
+                              >Recebidas ({{
+                                fakeNfSummaryStats[1] / fakeNfSummaryTotal
+                                  | percent
+                              }})</small
+                            >
+                          </td>
+                          <td>
+                            <span
+                              class="bar"
+                              [style.background]="
+                                'linear-gradient(90deg, #FF6D4C ' +
+                                (fakeNfSummaryStats[1] / fakeNfSummaryTotal) *
+                                  100 +
+                                '%, #f3f3f3 0%)'
+                              "
+                            ></span>
+                          </td>
+                          <td class="text-right">
+                            <span class="txt-gray-200 text-nowrap fw-500">{{
+                              fakeNfSummaryStats[1]
+                            }}</span>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td class="fw-500">
+                            <small class="text-nowrap"
+                              >Canceladas ({{
+                                fakeNfSummaryStats[2] / fakeNfSummaryTotal
+                                  | percent
+                              }})</small
+                            >
+                          </td>
+                          <td>
+                            <span
+                              class="bar"
+                              [style.background]="
+                                'linear-gradient(90deg, #3E4954 ' +
+                                (fakeNfSummaryStats[2] / fakeNfSummaryTotal) *
+                                  100 +
+                                '%, #f3f3f3 0%)'
+                              "
+                            ></span>
+                          </td>
+                          <td class="text-right">
+                            <span class="txt-gray-200 text-nowrap fw-500">{{
+                              fakeNfSummaryStats[2]
+                            }}</span>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+        <div class="card dashboard-card-no-size taxes">
+          <div class="card-header pt-3">
+            <div>
+              <h5>Impostos retidos</h5>
+              <small class="txt-gray-200"
+                >Veja o resumo dos impostos retidos nas notas fiscai., lembrado
+                que não é apuração dos impostos.</small
+              >
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="d-flex my-2">
+              <div class="d-flex flex-column align-items-center">
+                <circle-progress
+                  percent="80"
+                  [responsive]="true"
+                  backgroundColor="transparent"
+                  [backgroundPadding]="0"
+                  [radius]="35"
+                  [space]="-20"
+                  [maxPercent]="100"
+                  [outerStrokeWidth]="20"
+                  [innerStrokeWidth]="20"
+                  outerStrokeColor="#fd5353"
+                  outerStrokeGradientStopColor="#53a9ff"
+                  outerStrokeLinecap="butt"
+                  [unitsFontSize]="14"
+                  [titleFontSize]="14"
+                  [titleFontWeight]="600"
+                  [showSubtitle]="false"
+                  [showUnits]="true"
+                  [showInnerStroke]="true"
+                  innerStrokeColor="#F6EEFF"
+                  [animationDuration]="600"
+                ></circle-progress>
+                <small>ICMS</small>
+              </div>
+              <div class="d-flex flex-column align-items-center">
+                <circle-progress
+                  percent="50"
+                  [responsive]="true"
+                  backgroundColor="transparent"
+                  [backgroundPadding]="0"
+                  [radius]="35"
+                  [space]="-20"
+                  [maxPercent]="100"
+                  [outerStrokeWidth]="20"
+                  [innerStrokeWidth]="20"
+                  outerStrokeColor="#2BC155"
+                  outerStrokeGradientStopColor="#53a9ff"
+                  outerStrokeLinecap="butt"
+                  [unitsFontSize]="14"
+                  [titleFontSize]="14"
+                  [titleFontWeight]="600"
+                  [showSubtitle]="false"
+                  [showUnits]="true"
+                  [showInnerStroke]="true"
+                  innerStrokeColor="#F6EEFF"
+                  [animationDuration]="600"
+                ></circle-progress>
+                <small>ISS</small>
+              </div>
+              <div class="d-flex flex-column align-items-center">
+                <circle-progress
+                  percent="30"
+                  [responsive]="true"
+                  backgroundColor="transparent"
+                  [backgroundPadding]="0"
+                  [radius]="35"
+                  [space]="-20"
+                  [maxPercent]="100"
+                  [outerStrokeWidth]="20"
+                  [innerStrokeWidth]="20"
+                  outerStrokeColor="#FF7426"
+                  outerStrokeGradientStopColor="#53a9ff"
+                  outerStrokeLinecap="butt"
+                  [unitsFontSize]="14"
+                  [titleFontSize]="14"
+                  [titleFontWeight]="600"
+                  [showSubtitle]="false"
+                  [showUnits]="true"
+                  [showInnerStroke]="true"
+                  innerStrokeColor="#F6EEFF"
+                  [animationDuration]="600"
+                ></circle-progress>
+                <small>PIS/COFINS</small>
+              </div>
+              <div class="d-flex flex-column align-items-center">
+                <circle-progress
+                  percent="20"
+                  [responsive]="true"
+                  backgroundColor="transparent"
+                  [backgroundPadding]="0"
+                  [radius]="35"
+                  [space]="-20"
+                  [maxPercent]="100"
+                  [outerStrokeWidth]="20"
+                  [innerStrokeWidth]="20"
+                  outerStrokeColor="#093CBD"
+                  outerStrokeGradientStopColor="#53a9ff"
+                  outerStrokeLinecap="butt"
+                  [unitsFontSize]="14"
+                  [titleFontSize]="14"
+                  [titleFontWeight]="600"
+                  [showSubtitle]="false"
+                  [showUnits]="true"
+                  [showInnerStroke]="true"
+                  innerStrokeColor="#F6EEFF"
+                  [animationDuration]="600"
+                ></circle-progress>
+                <small>IRPJ/CSLL</small>
+              </div>
+            </div>
+            <div class="mt-4">
+              <table>
+                <thead>
+                  <th class="w-100"></th>
+                  <th></th>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <div class="d-flex flex-column mb-0">
+                        <h6 class="fw-900">Entradas</h6>
+                        <small>Período: Julho/2020</small>
+                        <a class="link" role="button">
+                          <small class="txt-blue">ver notas</small>
+                        </a>
+                      </div>
+                    </td>
+                    <td>
+                      <div>
+                        <h5 class="fw-900 text-nowrap">R$ 900.000,00</h5>
+                        <small class="txt-gray-300 fw-300 text-nowrap"
+                          >Impostos Retidos (12%)</small
+                        >
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="d-flex flex-column mb-0">
+                        <h6 class="fw-900">Saídas</h6>
+                        <small>Período: Julho/2020</small>
+                        <a class="link" role="button">
+                          <small class="txt-blue">ver notas</small>
+                        </a>
+                      </div>
+                    </td>
+                    <td>
+                      <div>
+                        <h5 class="fw-900 text-nowrap">R$ 15.000,00</h5>
+                        <small class="txt-gray-300 fw-300 text-nowrap"
+                          >Impostos Retidos (12%)</small
+                        >
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card dashboard-card-no-size customers-suppliers mb-4">
+        <div class="card-header pt-3">
+          <div class="d-flex w-100 justify-content-between align-items-center">
+            <div class="d-flex flex-column w-75">
+              <h5>🔥 &nbsp;Principais Clientes e Fornecedores</h5>
+              <small class="txt-gray-200"
+                >Veja os clientes com mais vendas através das notas
+                fiscais</small
+              >
+            </div>
+            <div
+              ngbDropdown
+              [placement]="'bottom-right'"
+              class="d-inline-block ml-3"
+            >
+              <button class="btn btn-filter" ngbDropdownToggle>
+                {{ selectedCustomersSuppliersFilter }}
+                <fa-icon class="ml-3 txt-blue" [icon]="faChevronDown"></fa-icon>
+              </button>
+              <div ngbDropdownMenu>
+                <button
+                  (click)="selectedCustomersSuppliersFilter = 'Clientes'"
+                  ngbDropdownItem
+                >
+                  Clientes
+                </button>
+                <button
+                  (click)="selectedCustomersSuppliersFilter = 'Fornecedores'"
+                  ngbDropdownItem
+                >
+                  Fornecedores
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div>
+            <table>
+              <thead>
+                <th class="w-10"></th>
+                <th class="w-100"></th>
+                <th></th>
+              </thead>
+              <tbody *ngIf="selectedCustomersSuppliersFilter == 'Clientes'">
+                <tr
+                  *ngFor="let customer of customers; let i = index"
+                  [ngClass]="{ 'border-none': i == customers.length - 1 }"
+                >
+                  <td>
+                    <h5 class="txt-gray-300 fw-600 mb-0">#{{ i + 1 }}</h5>
+                  </td>
+                  <td>
+                    <div class="d-flex flex-column">
+                      <span class="fw-500">{{ customer.name }}</span>
+                      <small>CNPJ {{ customer.cnpj }}</small>
+                      <div class="d-flex align-items-center mt-2">
+                        <small
+                          >Total {{ customer.total | currency: "BRL" }}</small
+                        >
+                        <a class="link ml-2" role="button"
+                          ><small class="txt-blue">ver notas</small></a
+                        >
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="d-flex">
+                      <img
+                        [src]="
+                          customer.variation > 0
+                            ? '../../../../assets/icons/graph_positive.svg'
+                            : '../../../../assets/icons/graph_negative.svg'
+                        "
+                        height="20"
+                      />
+                      <div class="ml-3">
+                        <h4 class="fw-900 text-nowrap mb-0">
+                          {{ customer.sales }}
+                        </h4>
+                        <small class="txt-gray-300 text-nowrap">
+                          Vendas ({{ customer.variation | percent }})
+                        </small>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+              <tbody *ngIf="selectedCustomersSuppliersFilter == 'Fornecedores'">
+                <tr
+                  *ngFor="let supplier of suppliers; let i = index"
+                  [ngClass]="{ 'border-none': i == suppliers.length - 1 }"
+                >
+                  <td>
+                    <h5 class="txt-gray-300 fw-600 mb-0">#{{ i + 1 }}</h5>
+                  </td>
+                  <td>
+                    <div class="d-flex flex-column">
+                      <span class="fw-500">{{ supplier.name }}</span>
+                      <small>CNPJ {{ supplier.cnpj }}</small>
+                      <div class="d-flex align-items-center mt-2">
+                        <small
+                          >Total {{ supplier.total | currency: "BRL" }}</small
+                        >
+                        <a class="link ml-2" role="button"
+                          ><small class="txt-blue">ver notas</small></a
+                        >
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="d-flex">
+                      <img
+                        [src]="
+                          supplier.variation > 0
+                            ? '../../../../assets/icons/graph_positive.svg'
+                            : '../../../../assets/icons/graph_negative.svg'
+                        "
+                        height="20"
+                      />
+                      <div class="ml-3">
+                        <h4 class="fw-900 text-nowrap mb-0">
+                          {{ supplier.sales }}
+                        </h4>
+                        <small class="txt-gray-300 text-nowrap">
+                          Vendas ({{ supplier.variation | percent }})
+                        </small>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="card dashboard-card-no-size cfop">
+        <div class="card-header pt-3">
+          <div class="d-flex w-100 justify-content-between align-items-center">
+            <div class="d-flex flex-column">
+              <h5>Notas Fiscais por CFOP</h5>
+              <small class="txt-gray-200">Lorem ipsum dolor sit amet</small>
+            </div>
+            <div class="dashboard-filter">
+              <ul>
+                <li class="mr-2" [class.active]="cfopFilter == 0">
+                  <a role="button" (click)="cfopFilter = 0">Entrada</a>
+                </li>
+                <li class="mr-2" [class.active]="cfopFilter == 1">
+                  <a role="button" (click)="cfopFilter = 1">Saída</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="pt-3">
+            <table>
+              <thead>
+                <th class="w-100"></th>
+                <th></th>
+              </thead>
+              <tbody>
+                <tr *ngFor="let invoice of cfopInvoices">
+                  <td>
+                    <div class="d-flex flex-column">
+                      <span class="fw-500">{{ invoice.title }}</span>
+                      <a role="button" class="link">
+                        <small class="txt-blue"
+                          >{{ invoice.quantity }} notas fiscais</small
+                        >
+                      </a>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="d-flex">
+                      <h4 class="mb-0 mr-4 fw-600 text-nowrap">
+                        {{ invoice.amount | currency: "BRL" }}
+                      </h4>
+                      <a role="button">
+                        <fa-icon [icon]="faEllipsisH"></fa-icon>
+                      </a>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="d-flex justify-content-center pt-3">
+              <a role="button" class="link">
+                <span class="txt-blue mr-3">ver mais</span>
+                <fa-icon [icon]="faChevronDown" class="txt-blue"></fa-icon>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,90 @@
+<div class="p-3">
+  <div class="row mt-4">
+    <div class="col-md-12">
+      <p-table
+        [value]="data"
+        [rows]="10"
+        [rowHover]="false"
+        [paginator]="true"
+        [responsive]="true"
+        [showFirstLastIcon]="false"
+        styleClass="custom-table"
+        tableStyleClass="no-row-border"
+        [(selection)]="selectedProducts"
+        dataKey="id"
+      >
+        <ng-template pTemplate="header" *ngIf="data.length > 0">
+          <tr>
+            <th style="width: 3rem">
+              <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+            </th>
+            <th pSortableColumn="id" style="width: 10rem">
+              Id Fatura<p-sortIcon field="id"></p-sortIcon>
+            </th>
+            <th pSortableColumn="emissionDate">
+              Data<p-sortIcon field="emissionDate"></p-sortIcon>
+            </th>
+            <th pSortableColumn="tax">
+              Produto <p-sortIcon field="tax"></p-sortIcon>
+            </th>
+            <th pSortableColumn="amount">
+              Valor <p-sortIcon field="amount"></p-sortIcon>
+            </th>
+            <th pSortableColumn="status">
+              Status <p-sortIcon field="status"></p-sortIcon>
+            </th>
+            <th style="width: 5rem"></th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-item>
+          <tr>
+            <td>
+              <p-tableCheckbox [value]="item"></p-tableCheckbox>
+            </td>
+            <td>
+              <span class="fw-600 text-nowrap">#{{ item.id.slice(0, 7) }}</span>
+            </td>
+            <td>
+              {{ item.date | date: "hh/MMMM/yyyy" }}
+            </td>
+            <td>{{ item.product }}</td>
+            <td>
+              <span class="text-nowrap fw-600 txt-primary">{{
+                item.price | currency: "BRL"
+              }}</span>
+            </td>
+            <td>
+              <div
+                class="status-cell"
+                [ngClass]="{
+                  orange: item.status == 'Pending',
+                  blue: item.status == 'Invoice Sent',
+                  green: item.status == 'Completed'
+                }"
+              >
+                {{ item.status }}
+              </div>
+            </td>
+            <td>
+              <a role="button"><i class="pi pi-ellipsis-h"></i></a>
+            </td>
+          </tr>
+        </ng-template>
+
+        <ng-template
+          pTemplate="paginatorleft"
+          *ngIf="data.length > 0"
+          let-state
+        >
+          Mostrar de {{ state.page * state.rows + 1 }} até
+          {{ state.rows * (state.page + 1) }}
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td colspan="8">Não há dados para exibir.</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</div>

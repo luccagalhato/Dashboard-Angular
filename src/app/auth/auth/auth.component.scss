@@ -1,0 +1,17 @@
+@import '../../../variables';
+
+:host {
+  height: 100%;
+  display: block;
+}
+
+.main {
+  background-color: white;
+  width: 400px;
+  height: 100%;
+  z-index: 2;
+}
+
+.side {
+  background-color: $secondary;
+}

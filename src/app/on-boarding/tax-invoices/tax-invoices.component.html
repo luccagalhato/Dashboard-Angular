@@ -1,0 +1,51 @@
+<div class="row">
+  <div class="col-12 d-flex justify-content-end px-4">
+    <button class="btn" (click)="logout()">
+      <fa-icon class="ml-2 mr-3" [icon]="faExit"></fa-icon> Sair
+    </button>
+  </div>
+</div>
+<div class="row">
+  <div class="col-3 px-5">
+    <div class="logo text-center flex-grow-1 hideable mb-3">
+      <img src="/assets/img/logo.png" class="w-50">
+    </div>
+
+    <p>Bem vindo(a)</p>
+    <p style="line-height: 2;">Para começar, vamos realizar alguns ajustes na plataforma para você aproveitar 100% dos nossos recursos.</p>
+
+    <ul class="steps">
+      <li class="text-secondary"><fa-icon class="ml-2 mr-3 text-secondary" [icon]="faCheckCircle"></fa-icon>Autenticação</li>
+      <li class="text-secondary"><fa-icon class="ml-2 mr-3 text-secondary" [icon]="faCheckCircle"></fa-icon>Dados da Empresa</li>
+      <li class="text-secondary"><fa-icon class="ml-2 mr-3 text-secondary" [icon]="faCheckCircle"></fa-icon>Pagamento</li>
+      <li class="text-secondary"><fa-icon class="ml-2 mr-3 text-secondary" [icon]="faCheckCircle"></fa-icon>Dados Fiscais</li>
+      <li class="text-secondary"><fa-icon class="ml-2 mr-3 text-secondary" [icon]="faCheckCircle"></fa-icon>Notas Fiscais</li>
+      <li class="text-primary"><fa-icon class="ml-2 mr-3 text-primary" [icon]="faCircleNotch"></fa-icon>Importação</li>
+    </ul>
+  </div>
+
+  <div class="col-9 px-5">
+    <h2 class="text-center mb-3">Importação de Notas Fiscais</h2>
+    <p>Selecione algumas notas de entrada e saída para que a configuração da plataforma seja concluída para uso.</p>
+    <div class="row mb-3">
+      <div class="col-12 mb-5 mt-5">
+        <label for="entrada" class="form-label">Selecione os arquivos XML das notas</label>
+        <div class="input-group">
+          <input type="text" class="form-control" aria-label="Text input with segmented dropdown button" value="{{ selectedFiles() }}">
+          <input type="file" #entrada style="display: none" accept=".xml" (change)="fileChange($event)" multiple>
+          <div class="input-group-append">
+            <button type="button" (click)="entrada.click()" class="btn btn-outline-secondary">Selecionar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12 d-flex justify-content-between">
+        <button type="button" class="btn btn-link" (click)="location.back()">Voltar</button>
+        <button type="button" class="btn btn-primary rounded-pill" (click)="uploadFiles()">Continuar</button>
+        <button type="button" class="btn btn-link" routerLink="/cadastro/finalizado">Pular</button>
+      </div>
+    </div>
+  </div>
+</div>

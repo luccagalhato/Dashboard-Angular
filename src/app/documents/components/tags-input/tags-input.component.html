@@ -1,0 +1,19 @@
+<div class="form-group" (click)="focusTagInput()">
+  <div class="card p-2">
+    <span class="badge mr-2" *ngFor="let tag of tags"
+      [ngStyle]="{
+        color: '#2f4cdd',
+        background: '#2f4cdd' + '10'
+      }">
+      {{tag}}
+      <span class="remove-tag" (click)="removeTag(tag)">×</span>
+    </span>
+    <input
+    placeholder="+tag"
+    #tagInput type="text"
+    class="input-tag"
+    (keyup)="onKeyUp($event)"
+    name="tag"
+    [(ngModel)]="tagControl">
+  </div>
+</div>

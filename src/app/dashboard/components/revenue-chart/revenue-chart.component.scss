@@ -1,0 +1,14 @@
+.revenue-taxes {
+  .chart-legend {
+    height: 16px;
+    width: 16px;
+    border-radius: 6px;
+
+    &.revenue-legend {
+      background: #2f4cdd;
+    }
+    &.taxes-legend {
+      background: #b519ec;
+    }
+  }
+}

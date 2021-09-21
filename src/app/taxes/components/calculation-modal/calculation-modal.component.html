@@ -1,0 +1,188 @@
+<div class="modal-header px-4">
+  <div class="d-flex justify-content-between align-items-start w-100">
+    <div class="d-flex flex-column">
+      <h4 class="font-weight-bold">Gerar Apuração</h4>
+      <span class="txt-gray-200" *ngIf="(company$ | async)?.regime != 'MEI'"
+        >Adicione os documentos da sua apuração por imposto.</span
+      >
+    </div>
+    <button
+      type="button"
+      class="close pull-right txt-gray-300"
+      aria-label="Close"
+      (click)="modalRef.dismiss()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+</div>
+<div class="modal-body px-4 pt-4 pb-2" *ngIf="company$ | async as company">
+  <section *ngIf="company.regime != 'MEI'">
+    <div class="row">
+      <div class="col-3">
+        <div class="form-group">
+          <small class="txt-gray-100 font-weight-bold">Imposto</small>
+          <input type="text" class="form-control rounded-input" />
+        </div>
+      </div>
+      <div class="col-3 offset-3">
+        <div class="form-group">
+          <small class="txt-gray-100 font-weight-bold">Período</small>
+          <input
+            type="string"
+            mask="M0/0000"
+            class="form-control rounded-input"
+          />
+        </div>
+      </div>
+      <div class="col-3">
+        <div class="form-group">
+          <small class="txt-gray-100 font-weight-bold">Valor</small>
+          <input
+            type="text"
+            prefix="R$ "
+            mask="separator.2"
+            thousandSeparator="."
+            class="form-control rounded-input"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section *ngIf="company.regime != 'MEI'">
+    <div class="row mt-4">
+      <div class="col-12">
+        <h5 class="font-weight-bold mb-4">Documentos</h5>
+        <div class="documents-table mb-3">
+          <table id="calculation-modal-table">
+            <thead>
+              <tr>
+                <th style="width: 40%">
+                  <small
+                    class="letter-spacing txt-gray-100 font-weight-bold text-nowrap"
+                  >
+                    DESCRIÇÃO
+                  </small>
+                </th>
+                <th>
+                  <small
+                    class="letter-spacing txt-gray-100 font-weight-bold mr-5 text-nowrap"
+                  >
+                    DATA DE VENCIMENTO
+                  </small>
+                </th>
+                <th>
+                  <small
+                    class="letter-spacing txt-gray-100 font-weight-bold mr-5 text-nowrap"
+                  >
+                    VALOR
+                  </small>
+                </th>
+                <th>
+                  <small
+                    class="letter-spacing txt-gray-100 font-weight-bold text-nowrap"
+                  >
+                    ANEXO
+                  </small>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Declaração</td>
+              </tr>
+              <tr>
+                <td>Guia</td>
+                <td>05/04/2021</td>
+                <td class="font-weight-bold text-nowrap">R$ 360,00</td>
+                <td class="text-center">
+                  <a role="button">
+                    <img
+                      height="20"
+                      src="../../../../assets/icons/icAttachment.svg"
+                      alt="Anexar"
+                    />
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="pt-2 add-document">
+            <a role="button" (click)="addRow()" class="txt-gray-200 fw-500"
+              >Adicionar documento...</a
+            >
+          </div>
+        </div>
+
+        <div class="hint">
+          <span class="txt-gray-200">
+            *Os documentos serão salvos e disponibilizados na aba documentos.
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section *ngIf="company.regime == 'MEI'" [formGroup]="form">
+    <span class="txt-gray-200">Selecione o período para buscar a guia.</span>
+    <div class="row mt-4">
+      <div class="col-4">
+        <div class="form-group">
+          <small class="txt-gray-100 font-weight-bold">Mês</small>
+          <select class="custom-select rounded-input" formControlName="month">
+            <option selected>Selecione</option>
+            <option value="01">Janeiro</option>
+            <option value="02">Fevereiro</option>
+            <option value="03">Março</option>
+            <option value="04">Abril</option>
+            <option value="05">Maio</option>
+            <option value="06">Junho</option>
+            <option value="07">Julho</option>
+            <option value="08">Agosto</option>
+            <option value="09">Setembro</option>
+            <option value="10">Outubro</option>
+            <option value="11">Novembro</option>
+            <option value="12">Dezembro</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="form-group">
+          <small class="txt-gray-100 font-weight-bold">Ano</small>
+          <input
+            formControlName="year"
+            type="string"
+            mask="0000"
+            class="form-control rounded-input"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="hint">
+      <span class="txt-gray-200">
+        *Os documentos serão salvos e disponibilizados na aba documentos.
+      </span>
+    </div>
+  </section>
+</div>
+<div class="modal-footer">
+  <div class="d-flex justify-content-end align-items-center pr-2">
+    <button class="btn btn-action btn-primary mr-3">
+      <img
+        src="../../../../assets/icons/icAttachment_white.svg"
+        height="16"
+        class="mr-3"
+      />
+      <span>ADICIONAR ANEXO</span>
+    </button>
+    <button class="btn btn-action save-btn" (click)="createTax()">
+      <img
+        src="../../../../assets/icons/ic_save.svg"
+        height="16"
+        class="mr-3"
+      />
+      <span>SALVAR</span>
+    </button>
+  </div>
+</div>

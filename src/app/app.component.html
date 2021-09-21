@@ -1,0 +1,5 @@
+<router-outlet></router-outlet>
+<ngb-toast [delay]="toast.delay" [class]="toast.classname" style="display: block; position: absolute; right: 16px; bottom: 16px; z-index: 10;"
+  *ngFor="let toast of sys.toasts; index as index" (hide)="sys.toasts.splice(index, 1)">
+  {{ toast.textOrTpl }}
+</ngb-toast>

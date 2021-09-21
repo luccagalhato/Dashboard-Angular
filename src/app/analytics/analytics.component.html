@@ -1,0 +1,36 @@
+<div class="p-4">
+  <div>
+    <h2>Análise</h2>
+    <span class="fw-400">Acompanhe os indicadores e relatórios.</span>
+  </div>
+  <div class="mt-4">
+    <div class="card shadow-sm">
+      <div class="card-header p-0">
+        <nav class="p-0 navbar navbar-expand-sm navbar-light horizontal">
+          <div class="container-fluid">
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+              <div class="navbar-nav">
+                <a
+                  class="nav-link py-3"
+                  aria-current="page"
+                  routerLinkActive="active"
+                  routerLink="notas-fiscais"
+                  >Notas Fiscais</a
+                >
+                <a
+                  class="nav-link py-3"
+                  routerLinkActive="active"
+                  routerLink="impostos"
+                  >Impostos</a
+                >
+              </div>
+            </div>
+          </div>
+        </nav>
+      </div>
+      <div class="card-body">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+</div>

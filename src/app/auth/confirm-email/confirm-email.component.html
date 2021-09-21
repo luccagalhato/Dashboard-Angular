@@ -1,0 +1,35 @@
+<div class="text-center mb-3">
+  <img class="text-center w-50" src="/assets/img/logo.png">
+</div>
+<h2 class="text-center">Confirmar Email</h2>
+<form *ngIf="!confirm" [formGroup]="form" (ngSubmit)="sendConfirmationLink($event)">
+  <span class="form-text text-center my-3">
+    Enviamos um e-mail com o link para a confirmação do seu cadastro. Confira sua caixa de entrada!
+  </span>
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input type="email" class="form-control" formControlName="email" [class.is-invalid]="form.controls.email.invalid && submitted" id="email" aria-describedby="emailHelp" placeholder="nome@email.com">
+    <div class="invalid-feedback">
+      Obrigatório
+    </div>
+  </div>
+  <div class="text-center">
+    <button type="submit" class="btn btn-secondary w-100 rounded-pill" [disabled]="loading">Reenviar</button>
+  </div>
+  <hr>
+  <span class="form-text text-center my-3">
+    Não é <strong>{{ form.value.email }}</strong>?
+  </span>
+  <div class="text-center">
+    <button type="button" class="btn btn-outline-primary w-100 rounded-pill" [disabled]="loading" (click)="logout()">
+      <fa-icon class="ml-2 mr-3" [icon]="faSignOutAlt"></fa-icon>
+      Sair
+    </button>
+  </div>
+</form>
+
+<div class="d-flex justify-content-around mt-4" *ngIf="loading">
+  <div class="spinner-border text-secondary" role="status" width="38">
+    <span class="sr-only">Loading...</span>
+  </div>
+</div>

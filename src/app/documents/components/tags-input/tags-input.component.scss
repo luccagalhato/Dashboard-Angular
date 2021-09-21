@@ -1,0 +1,80 @@
+@import "../../../../_variables.scss";
+
+:host {
+  display: block;
+}
+
+.form-group {
+  & input {
+    margin: 0;
+    padding-left: 5px;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    width: 150px;
+  }
+}
+
+.card {
+  padding: 1rem;
+  border: 1px solid #ced4da;
+  border-radius: $input-rounded-border-radius;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  overflow: auto;
+  position: relative;
+  z-index: 1;
+  background-color: transparent;
+}
+
+.card-over {
+  padding: 1rem;
+  border: 1px solid #ced4da;
+  border-radius: $input-rounded-border-radius;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  overflow: auto;
+  height: 39px;
+  top: -39px;
+  position: relative;
+  z-index: 0;
+}
+
+
+.editor-tag {
+  cursor: text;
+  font-size: 16px;
+  padding: 10px 0px 10px 10px;
+  border-radius: 5px;
+  background: white;
+  border: 1px #cccccc solid;
+
+  & .tag-item {
+    line-height: 20px;
+    border-radius: 14px;
+    height: 20px;
+    font-size: 14px;
+    display: inline-block;
+    background: greenyellow;
+    padding-left: 5px;
+
+    .remove-tag {
+      padding-right: 5px;
+      cursor: pointer;
+    }
+  }
+
+  & .tag-item:not(:first-child) {
+    margin-left: 5px;
+  }
+
+  & input {
+    margin: 0;
+    padding-left: 5px;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+  }
+}

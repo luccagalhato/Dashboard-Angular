@@ -1,0 +1,48 @@
+:host {
+  height: 100%;
+  display: block;
+  background-color: white;
+}
+
+.steps {
+  list-style: none;
+  li {
+    padding: 0;
+    line-height: 2;
+  }
+}
+
+.card {
+  text-align: center;
+  .card-title {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14.4px;
+    line-height: 22px;
+    text-align: center;
+    text-transform: uppercase; 
+    color: #6C757D;    
+  }
+  .card-text {
+    color: #98A6AD;
+    font-size: 12px;
+    strong {
+      font-size: 30px;
+      font-weight: bold;
+      color:#6C757D;
+      line-height: 1;
+      vertical-align: sub;
+    }
+  }
+  ul {
+    padding: 0;
+  }
+  li {
+    color: #98A6AD;
+    list-style: none;
+    text-align: center;
+    font-size: 10px;
+    margin-bottom: 8px;
+  }
+}

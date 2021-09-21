@@ -1,0 +1,130 @@
+<div class="row">
+  <div class="col-12 d-flex justify-content-end px-4">
+    <button class="btn" (click)="logout()">
+      <fa-icon class="ml-2 mr-3" [icon]="faExit"></fa-icon> Sair
+    </button>
+  </div>
+</div>
+<div class="row">
+  <div class="col-3 px-5">
+    <div class="logo text-center flex-grow-1 hideable mb-3">
+      <img src="/assets/img/logo.png" class="w-50">
+    </div>
+
+    <p>Bem vindo(a)</p>
+    <p style="line-height: 2;">Para começar, vamos realizar alguns ajustes na plataforma para você aproveitar 100% dos nossos recursos.</p>
+
+    <ul class="steps">
+      <li class="text-secondary"><fa-icon class="ml-2 mr-3 text-secondary" [icon]="faCheckCircle"></fa-icon>Autenticação</li>
+      <li class="text-secondary"><fa-icon class="ml-2 mr-3 text-secondary" [icon]="faCheckCircle"></fa-icon>Dados da Empresa</li>
+      <li class="text-secondary"><fa-icon class="ml-2 mr-3 text-secondary" [icon]="faCheckCircle"></fa-icon>Pagamento</li>
+      <li class="text-secondary"><fa-icon class="ml-2 mr-3 text-secondary" [icon]="faCheckCircle"></fa-icon>Dados Fiscais</li>
+      <li class="text-primary"><fa-icon class="ml-2 mr-3 text-primary" [icon]="faCircleNotch"></fa-icon>Notas Fiscais</li>
+      <li><fa-icon class="ml-2 mr-3" [icon]="faCircleNotch"></fa-icon>Importação</li>
+    </ul>
+  </div>
+
+  <div class="col-9 px-5" [formGroup]="form">
+    <h2 class="text-center mb-3">Configuração das Notas Fiscais</h2>
+    <div class="custom-control custom-switch mb-2">
+      <input type="checkbox" class="custom-control-input" id="nfe" formControlName="nfeActive">
+      <label class="custom-control-label" for="nfe">
+        <strong>NF-e</strong><br>
+        Nota Fiscal Eletrônica: Utilizada para venda de produtos (Requer Inscrição Estadual)
+      </label>
+    </div>
+
+    <div class="row bg-light rounded w-75 ml-4" *ngIf="form.value.nfeActive">
+      <div class="col-3">
+        <div class="mb-3">
+          <label for="serieNfe" class="form-label form-label-sm">Série</label>
+          <input type="text" class="form-control form-control-sm" id="serieNfe" formControlName="nfeSerie">
+        </div>
+      </div>
+
+      <div class="col-9">
+        <div class="mb-3">
+          <label for="lastNfe" class="form-label form-label-sm">N. última NF</label>
+          <input type="text" class="form-control form-control-sm" id="lastNfe" formControlName="nfeLast">
+        </div>
+      </div>
+    </div>
+
+    <div class="custom-control custom-switch my-2">
+      <input type="checkbox" class="custom-control-input" id="nfse" formControlName="nfseActive">
+      <label class="custom-control-label" for="nfse">
+        <strong>NFS-e</strong><br>
+        Nota Fiscal de Serviços Eletrônica: Utilizada para venda de serviços (Requer Inscrição Municipal)
+      </label>
+    </div>
+    
+    <div class="row bg-light rounded w-75 ml-4" *ngIf="form.value.nfseActive">
+      <div class="col-3">
+        <div class="mb-3">
+          <label for="serieNfse" class="form-label form-label-sm">Série</label>
+          <input type="text" class="form-control form-control-sm" id="serieNfse" formControlName="nfseSerie">
+        </div>
+      </div>
+
+      <div class="col-6">
+        <div class="mb-3">
+          <label for="lastRps" class="form-label form-label-sm">N. última rps</label>
+          <input type="text" class="form-control form-control-sm" id="lastRps" formControlName="nfseLast">
+        </div>
+      </div>
+
+      <div class="col-6">
+        <div class="mb-3">
+          <label for="defaultIssRate" class="form-label form-label-sm">Alíquota ISS</label>
+          <input type="text" class="form-control form-control-sm" id="defaultIssRate" formControlName="defaultIssRate">
+        </div>
+      </div>
+    </div>
+
+    <div class="custom-control custom-switch my-2">
+      <input type="checkbox" class="custom-control-input" id="nfce" formControlName="nfceActive">
+      <label class="custom-control-label" for="nfce">
+        <strong>NFC-e</strong><br>
+        Nota Fiscal Eletrônica do Consumidor:  Utilizada para venda no varejo diretamente para o consumidor final (Requer Inscrição Estadual e Código de Segurança do Contribuinte).
+      </label>
+    </div>
+
+        
+    <div class="row bg-light rounded w-75 ml-4" *ngIf="form.value.nfceActive">
+      <div class="col-3">
+        <div class="mb-3">
+          <label for="serieNfce" class="form-label form-label-sm">Série</label>
+          <input type="text" class="form-control form-control-sm" id="serieNfce" formControlName="nfceSerie">
+        </div>
+      </div>
+
+      <div class="col-9">
+        <div class="mb-3">
+          <label for="lastNfce" class="form-label form-label-sm">N. última nfc-e</label>
+          <input type="text" class="form-control form-control-sm" id="lastNfce" formControlName="nfceLast">
+        </div>
+      </div>
+
+      <div class="col-6">
+        <div class="mb-3">
+          <label for="cscId" class="form-label form-label-sm">Identificação - ID CSC</label>
+          <input type="text" class="form-control form-control-sm" id="cscId" formControlName="cscId">
+        </div>
+      </div>
+
+      <div class="col-6">
+        <div class="mb-3">
+          <label for="csc" class="form-label form-label-sm">Código de Contribuinte - CSC</label>
+          <input type="text" class="form-control form-control-sm" id="csc" formControlName="csc">
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-2">
+      <div class="col-12 d-flex justify-content-between">
+        <button type="button" class="btn btn-link" routerLink="/cadastro/dados-fiscais">Voltar</button>
+        <button type="button" class="btn btn-primary rounded-pill" [disabled]="loading" (click)="updateCompany()">Continuar</button>
+      </div>
+    </div>
+  </div>
+</div>

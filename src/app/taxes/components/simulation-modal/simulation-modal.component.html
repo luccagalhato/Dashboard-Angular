@@ -1,0 +1,109 @@
+<div class="modal-header px-4">
+  <div class="d-flex justify-content-between align-items-start w-100">
+    <div class="d-flex flex-column">
+      <h4 class="font-weight-bold">Gerar Simulação</h4>
+      <span class="txt-gray-200"
+        >Adicione os documentos da sua apuração por imposto.</span
+      >
+    </div>
+    <button
+      type="button"
+      class="close pull-right txt-gray-300"
+      aria-label="Close"
+      (click)="modalRef.dismiss()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+</div>
+<div class="modal-body px-4 pt-2 pb-2">
+  <section>
+    <div class="row">
+      <div class="col-3 offset-6">
+        <div class="form-group">
+          <small class="txt-gray-100 font-weight-bold">Período</small>
+          <input
+            type="string"
+            mask="M0/0000"
+            class="form-control rounded-input"
+          />
+        </div>
+      </div>
+      <div class="col-3">
+        <div class="form-group">
+          <small class="txt-gray-100 font-weight-bold">Valor</small>
+          <input
+            type="text"
+            prefix="R$ "
+            mask="separator.2"
+            thousandSeparator="."
+            class="form-control rounded-input"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="row mt-3">
+      <div class="col-12">
+        <h5 class="font-weight-bold mb-4">Atividades</h5>
+        <div class="activities-table mb-3">
+          <table id="calculation-modal-table">
+            <thead>
+              <tr>
+                <th style="width: 90%">
+                  <small
+                    class="letter-spacing txt-gray-100 font-weight-bold text-nowrap"
+                  >
+                    DESCRIÇÃO
+                  </small>
+                </th>
+                <th>
+                  <small
+                    class="letter-spacing txt-gray-100 font-weight-bold mr-5 text-nowrap"
+                  >
+                    VALOR
+                  </small>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Serviço XYZ - CNAE 123123</td>
+                <td class="font-weight-bold text-nowrap">R$ 15.000,00</td>
+              </tr>
+              <tr>
+                <td>Serviço XYZ - CNAE 123123</td>
+                <td class="font-weight-bold text-nowrap">R$ 15.000,00</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="mt-2 add-activity">
+            <a role="button" (click)="addRow()" class="txt-gray-200 fw-500"
+              >Adicionar atividade...</a
+            >
+          </div>
+        </div>
+
+        <div class="hint">
+          <span class="txt-gray-200">
+            *Os documentos serão salvos e disponibilizados na aba documentos.
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+<div class="modal-footer">
+  <div class="d-flex justify-content-end align-items-center pr-2">
+    <button class="btn btn-action save-btn">
+      <img
+        src="../../../../assets/icons/ic_save.svg"
+        height="16"
+        class="mr-3"
+      />
+      <span>SALVAR</span>
+    </button>
+  </div>
+</div>

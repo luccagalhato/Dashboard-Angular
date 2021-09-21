@@ -1,0 +1,15 @@
+@import "../../../../_variables.scss";
+.save-btn {
+  background-color: #47de8b;
+  color: #fff;
+}
+
+@media (min-width: 576px) {
+  ::ng-deep {
+    .custom-size {
+      .modal-dialog {
+        max-width: 600px;
+      }
+    }
+  }
+}
